@@ -78,6 +78,8 @@ target 'applicationstopcorona' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
   
   pod 'Firebase/Analytics'
+  
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   
   rn_maps_path = '../node_modules/react-native-maps'

@@ -69,12 +69,11 @@ const Auth: React.FC = () => {
 
     return (
         <ImageBackground style={styles.container} imageStyle={[styles.containerHeaderSvg, { width: width, height: width / 1.47 }]} source={require('../../assets/retanguloheaderlogin.png')}>
-            <View style={[styles.logo, { height: width / 1.47 }]}>
-                <Image source={require('../../assets/logo.png')} />
-            </View>
+
+            <Image resizeMode={'contain'} style={{ width: width/2, height: height * 0.35 }} source={require('../../assets/logo.png')} />
+
             <View style={styles.containerForm}>
-                <View style={[styles.gradeLine, { top: 20 }]} />
-                <View style={[styles.inputView, { flexDirection: 'row', top: 15 }]}>
+                <View style={[styles.inputView, { flexDirection: 'row' }]}>
                     <View style={styles.inputViewImage}>
                         <Image style={{ padding: 15 }} source={require('../../assets/logoemail.png')} />
                     </View>
@@ -124,8 +123,6 @@ const Auth: React.FC = () => {
                 <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate('AuthCreate')}>
                     <Text style={styles.textRecoverPassword}>Não tem uma conta?</Text>
                 </TouchableOpacity>
-
-                <View style={{ height: Platform.OS == 'ios' ? 20 : 5, width: width }} />
 
             </View>
         </ImageBackground>

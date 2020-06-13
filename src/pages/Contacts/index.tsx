@@ -4,18 +4,21 @@ import {
     View,
     Text,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
+    Dimensions
 
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import LinkingWhatsapp from '../../functions/LinkWhatsapp';
 import styles from './styles';
+const width = Dimensions.get("window").width;
+const height = Dimensions.get("window").height;
 const Contacts: React.FC = () => {
     const navigation = useNavigation();
     return (
         <>
             <ImageBackground style={styles.container} imageStyle={styles.containerHeader} source={require('../../assets/headerscreen.png')}>
-                <View style={[styles.containerHeader, { top: 10, position: 'absolute' }]}>
+                <View style={styles.containerHeader}>
                     <Image resizeMode={'contain'} source={require('../../assets/contatos.png')} />
                     <Text style={styles.textHeader}>Contatos úteis</Text>
                 </View>
@@ -23,7 +26,6 @@ const Contacts: React.FC = () => {
                     <View style={[styles.gradeLine]} />
                     <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: 26 }}>Contato de auto ajuda</Text>
                     <Text style={{ fontSize: 20 }}>188</Text>
-                    <View style={[styles.gradeLine]} />
                     <View style={[styles.gradeLine]} />
                     <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: 26 }}>Contato dos desenvolvedores</Text>
                     <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: 20 }}>querytena@gmail.com</Text>

@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     },
     inputView: {
         width: width - 80,
-        minHeight: 60,
+        height: width * 0.16,
         alignContent: 'center',
         justifyContent: 'center',
         backgroundColor: 'white',
@@ -28,14 +28,7 @@ const styles = StyleSheet.create({
         fontSize: 20, padding: 20,
         shadowRadius: 10,
     },
-    infoUserInputView: {
-        width: width - 80,
-        height: 45,
-        alignItems: 'center',
-        flexDirection: 'row',
-        padding: 10,
-        alignContent: 'center'
-    },
+
     textProfile: {
         top: 5,
         color: 'white',
@@ -43,35 +36,29 @@ const styles = StyleSheet.create({
     },
     textInfo: {
         color: 'black',
-        fontSize: 22
+        fontSize: 16
     },
     submit: {
         width: width - 140,
-        height: 65,
+        height: width * 0.14,
         backgroundColor: '#7209B7',
-        borderRadius: 65 / 2,
+        borderRadius: 65 / 3,
         alignContent: 'center',
         justifyContent: 'center',
         alignItems: 'center',
-        elevation: 2,
+        elevation: 3,
         shadowOffset: { width: 5, height: 5 },
         shadowColor: "black",
         shadowOpacity: 0.5,
         shadowRadius: 10,
     },
-    viewSubmit: {
-        height: 100,
-        width: width,
-        alignContent: 'center',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
     submitText: {
         color: 'white',
         fontSize: 20
     },
+
     tabNavigatorView: {
-        height: width / 4.987951807228916,
+        height: '10%',
         width: width,
         left: 0,
         right: 0,
@@ -82,9 +69,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     buttomNavigator: {
-        width: 75,
-        height: 75,
-        borderRadius: 40,
+        width: '18%',
+        height: width * 0.18,
+        borderRadius: 200,
         elevation: 2,
         shadowOffset: { width: 5, height: 5 },
         shadowColor: "black",
@@ -95,8 +82,8 @@ const styles = StyleSheet.create({
         alignContent: 'center'
     },
     iconButtomNavigator: {
-        height: 35,
-        width: 35
+        height: '50%',
+        width: '50%'
     },
     gradeLine: {
         height: 1,
@@ -105,8 +92,7 @@ const styles = StyleSheet.create({
     },
     containerForm: {
         width: width,
-        top: (width / 1.89),
-        height: (height - (width / 1.89) - (width / 4.987951807228916)),
+        height: '65%',
         alignItems: 'center',
         justifyContent: 'space-evenly',
         alignContent: 'center'

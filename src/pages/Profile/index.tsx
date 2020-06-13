@@ -18,6 +18,8 @@ import { RectButton, ScrollView } from 'react-native-gesture-handler';
 import styles from './styles';
 import updateName from './functions';
 import { useNameUser, useEmailUser } from '../../context/contextRouter';
+const width = Dimensions.get("window").width;
+const height = Dimensions.get("window").height;
 const Profile: React.FC = () => {
     const { name, setName } = useNameUser();
     const { email } = useEmailUser();
@@ -47,51 +49,40 @@ const Profile: React.FC = () => {
     return (
         <>
             <ImageBackground style={styles.container} imageStyle={styles.containerHeader} source={require('../../assets/headerscreen.png')}>
-                <View style={[styles.containerHeader, { top: 10, position: 'absolute' }]}>
+                <View style={[styles.containerHeader]}>
                     <Image resizeMode={'contain'} source={require('../../assets/profile.png')} />
                 </View>
                 <View style={[styles.containerForm]}>
-                    <View style={[styles.gradeLine]} />
-                    <View>
-                        <View style={styles.infoUserInputView}>
-                            <Text style={styles.textInfo}>Nome</Text>
-                        </View>
-                        <TextInput
-                            style={styles.inputView}
-                            value={nameUser}
-                            onChangeText={(e) => setNameUser(e)}
-                        />
+
+
+                    <TextInput
+                        style={styles.inputView}
+                        value={nameUser}
+                        onChangeText={(e) => setNameUser(e)}
+                    />
+
+
+                    <View style={styles.inputView}>
+                        <ScrollView style={{ height: width * 0.16 }} horizontal showsHorizontalScrollIndicator={false}>
+                            <Text style={styles.textInfo} >{email}</Text>
+                        </ScrollView>
                     </View>
-                    <View>
-                        <View style={styles.infoUserInputView}>
-                            <Text style={styles.textInfo}>Email</Text>
-                        </View>
-                        <View style={styles.inputView}>
-                            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                                <Text style={{ fontSize: 20, }} >{email}</Text>
-                            </ScrollView>
-                        </View>
-                    </View>
-                    <View>
-                        <View style={styles.infoUserInputView}>
-                            <Text style={styles.textInfo}>Senha</Text>
-                        </View>
-                        <TextInput
-                            style={[styles.inputView]}
-                            placeholder={'Digite a nova senha...'}
-                            value={password}
-                            secureTextEntry
-                            onChangeText={(e) => setPassword(e)}
-                        />
-                    </View>
+
+
+                    <TextInput
+                        style={[styles.inputView]}
+                        placeholder={'Digite a nova senha...'}
+                        value={password}
+                        secureTextEntry
+                        onChangeText={(e) => setPassword(e)}
+                    />
+
 
 
                     <RectButton style={[styles.submit]} onPress={handlePressSubmit} >
                         <Text style={styles.submitText}>Alterar informações</Text>
                     </RectButton>
 
-                    <View style={[styles.gradeLine]} />
-                    <View style={{ height: 20, width: 10, }} />
 
                 </View>
             </ImageBackground>

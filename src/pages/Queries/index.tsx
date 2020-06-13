@@ -207,7 +207,7 @@ const Queries: React.FC = () => {
     return (
         <>
             <ImageBackground style={styles.container} imageStyle={styles.containerHeader} source={require('../../assets/headerscreen.png')}>
-                <View style={[styles.containerHeader, { top: 10, position: 'absolute' }]}>
+                <View style={[styles.containerHeader]}>
                     <Image resizeMode={'contain'} source={require('../../assets/consu.png')} />
                     <Text style={styles.textHeader}>Consulta Virtual</Text>
                 </View>
@@ -216,8 +216,8 @@ const Queries: React.FC = () => {
                         <View style={{ width: '100%', padding: 20, flexDirection: 'row', height: '40%', top: 0, position: 'absolute' }}>
                             <Image source={require('../../assets/docQueires.png')} />
                             <Image source={require('../../assets/blos.png')} />
-                            <Text numberOfLines={4} ellipsizeMode='tail' style={{ top: 20, position: 'absolute', color: 'black', left: width / 3, right: width / 7, fontSize: 24, height: 100 }}>{question}</Text>
-                            {visibleBalao && <Text numberOfLines={2} ellipsizeMode='tail' style={{ top: 130, position: 'absolute', color: 'white', left: width / 4, right: width / 9, fontSize: 24, height: 100 }}>Vá ao Hospital!</Text>}
+                            <Text numberOfLines={4} ellipsizeMode='tail' style={{ top: 20, position: 'absolute', color: 'black', left: width / 3, right: width / 7, fontSize: 20, height: 100 }}>{question}</Text>
+                            {visibleBalao && <Text numberOfLines={2} ellipsizeMode='tail' style={{ top: 130, position: 'absolute', color: 'white', left: width / 4, right: width / 9, fontSize: 20, height: 100 }}>Vá ao Hospital!</Text>}
                         </View>
 
                         <View style={{ width: '100%', height: '40%', padding: 10, flexDirection: 'row', justifyContent: 'space-evenly' }}>

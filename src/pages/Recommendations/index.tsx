@@ -75,7 +75,7 @@ const Recommendations: React.FC = () => {
     return (
         <>
             <ImageBackground style={styles.container} imageStyle={styles.containerHeader} source={require('../../assets/headerscreen.png')}>
-                <View style={[styles.containerHeader, { top: 10, position: 'absolute' }]}>
+                <View style={[styles.containerHeader]}>
                     <Image resizeMode={'contain'} source={require('../../assets/recommendations.png')} />
                     <Text style={styles.textHeader}>Recomendações</Text>
                 </View>

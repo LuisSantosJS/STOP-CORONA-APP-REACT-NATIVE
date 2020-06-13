@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
         fontSize: 24
     },
     tabNavigatorView: {
-        height: width / 4.987951807228916,
+        height: '10%',
         width: width,
         left: 0,
         right: 0,
@@ -29,9 +29,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     buttomNavigator: {
-        width: 75,
-        height: 75,
-        borderRadius: 40,
+        width: '18%',
+        height: width * 0.18,
+        borderRadius: 200,
         elevation: 2,
         shadowOffset: { width: 5, height: 5 },
         shadowColor: "black",
@@ -42,13 +42,12 @@ const styles = StyleSheet.create({
         alignContent: 'center'
     },
     iconButtomNavigator: {
-        height: 35,
-        width: 35
+        height: '50%',
+        width: '50%'
     },
     containerForm: {
         width: width,
-        top: (width / 1.89),
-        height: (height - (width / 1.89) - (width / 4.987951807228916)),
+        height: '65%',
         alignItems: 'center',
         justifyContent: 'space-evenly',
         alignContent: 'center'
@@ -63,18 +62,18 @@ const styles = StyleSheet.create({
         backgroundColor: '#7209B7',
         width: '80%'
     },
-    textCasesTitle:{
+    textCasesTitle: {
         color: 'white',
         fontSize: 32
     },
-    textCasesDecription:{
+    textCasesDecription: {
         color: 'lightgrey',
         fontSize: 26,
         fontWeight: 'bold'
     },
     viewSubmit: {
-        height: 100,
-        width: width,
+
+        height: width * 0.25,
         alignContent: 'center',
         justifyContent: 'center',
         alignItems: 'center'
@@ -83,15 +82,16 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 20
     },
+
     submit: {
         width: width - 140,
-        height: 65,
+        height: width * 0.14,
         backgroundColor: '#7209B7',
-        borderRadius: 65 / 2,
+        borderRadius: 65 / 3,
         alignContent: 'center',
         justifyContent: 'center',
         alignItems: 'center',
-        elevation: 2,
+        elevation: 3,
         shadowOffset: { width: 5, height: 5 },
         shadowColor: "black",
         shadowOpacity: 0.5,

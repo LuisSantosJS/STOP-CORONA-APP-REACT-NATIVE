@@ -10,13 +10,18 @@ const styles = StyleSheet.create({
     },
     containerForm: {
         width: width,
-        height: (height - (width / 1.47)),
-        top: (width / 1.47),
+        height: '65%',
+        padding: 5,
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-evenly',
+        alignContent: 'center'
     },
     containerHeaderSvg: {
-
+        height: height * 0.35,
+        width: width,
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        padding: 30
     },
     logo: {
         padding: 30,
@@ -40,13 +45,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: width,
         flexDirection: 'row',
-        height: 30
+        height: width * 0.06,
+
     },
     inputView: {
         width: width - 80,
-        height: 60,
+        height: width * 0.15,
         backgroundColor: 'white',
-        borderRadius: (width - 80) / 2,
+        borderRadius: 25,
         elevation: 3,
         shadowOffset: { width: 5, height: 5 },
         shadowColor: "black",
@@ -57,17 +63,19 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         justifyContent: 'center',
         alignItems: 'center',
-        height: 60, width: 50
+        height: width * 0.15,
+        width: width * 0.15
     },
     input: {
         width: width - 160,
-        height: 60,
+        height: width * 0.15,
+
         fontSize: 20
     },
 
     submit: {
         width: width - 140,
-        height: 65,
+        height: width * 0.15,
         backgroundColor: '#7209B7',
         borderRadius: 65 / 2,
         alignContent: 'center',
@@ -87,24 +95,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
     },
-    iconTouchableSocialLogin: {
-        height: 65,
-        width: 65,
-        borderRadius: 32.5,
-        backgroundColor: '#7209B7',
-        alignItems: 'center',
-        justifyContent: 'center',
-        alignContent: 'center',
-        elevation: 2,
-        shadowOffset: { width: 2, height: 2 },
-        shadowColor: "black",
-        shadowOpacity: 0.5,
-        shadowRadius: 10
-    },
-    iconSocial: {
-        height: 30,
-        width: 30
-    },
+
     submitText: {
         color: 'white',
         fontSize: 20
@@ -114,7 +105,7 @@ const styles = StyleSheet.create({
         fontSize: 18
     },
     viewSubmitAndRecover: {
-        height: 100,
+        height: width * 0.25,
         width: width - 130,
         alignContent: 'center',
         justifyContent: 'space-between',

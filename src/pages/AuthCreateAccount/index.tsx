@@ -15,7 +15,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import firebase from '@react-native-firebase/app';
 import styles from './styles';
 import auth from '@react-native-firebase/auth';
-import { RectButton } from 'react-native-gesture-handler';
+import { RectButton, ScrollView } from 'react-native-gesture-handler';
 import * as EmailValidator from 'email-validator';
 import Toast from 'react-native-simple-toast';
 const width = Dimensions.get("window").width;
@@ -43,7 +43,7 @@ const AuthCreate: React.FC = () => {
         }
         return Toast.showWithGravity('Insira um email válido e Preencha os campos a seguir!', Toast.LONG, Toast.TOP);
     }
-    
+
 
     function createAccount() {
         auth().createUserWithEmailAndPassword(email.toLowerCase(), password).then(() => {
@@ -82,12 +82,13 @@ const AuthCreate: React.FC = () => {
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor={'#454ADE'} />
+
+
             <View style={styles.header}>
                 <Image source={require('../../assets/logo.png')} />
             </View>
             <View style={styles.containerForm}>
-                <View style={[styles.gradeLine, { top: 20 }]} />
-                <View style={[styles.inputView, { flexDirection: 'row', top: 15 }]}>
+                <View style={[styles.inputView, { flexDirection: 'row' }]}>
                     <View style={styles.inputViewImage}>
                         <Image style={{ padding: 15 }} source={require('../../assets/person-24px.png')} />
                     </View>
@@ -99,7 +100,7 @@ const AuthCreate: React.FC = () => {
                     />
                 </View>
 
-                <View style={[styles.inputView, { flexDirection: 'row', top: 15 }]}>
+                <View style={[styles.inputView, { flexDirection: 'row' }]}>
                     <View style={styles.inputViewImage}>
                         <Image style={{ padding: 15 }} source={require('../../assets/logoemail.png')} />
                     </View>
@@ -111,7 +112,7 @@ const AuthCreate: React.FC = () => {
                         value={email}
                     />
                 </View>
-                <View style={[styles.inputView, { flexDirection: 'row', top: 15 }]}>
+                <View style={[styles.inputView, { flexDirection: 'row' }]}>
                     <View style={styles.inputViewImage}>
                         <Image style={{ padding: 15 }} source={require('../../assets/logopassword.png')} />
                     </View>
@@ -124,7 +125,7 @@ const AuthCreate: React.FC = () => {
                     />
                 </View>
 
-                <View style={[styles.inputView, { flexDirection: 'row', top: 15 }]}>
+                <View style={[styles.inputView, { flexDirection: 'row' }]}>
                     <View style={styles.inputViewImage}>
                         <Image style={{ padding: 15 }} source={require('../../assets/logopassword.png')} />
                     </View>
@@ -136,15 +137,11 @@ const AuthCreate: React.FC = () => {
                         value={confirmPassword}
                     />
                 </View>
-                <View style={[styles.gradeLine, { top: 20 }]} />
                 <View style={styles.viewSubmit}>
                     <RectButton style={[styles.submit]} onPress={handleSubmit}>
                         <Text style={styles.submitText}>Criar Conta</Text>
                     </RectButton>
                 </View>
-                {Platform.OS == 'ios' &&
-                    <View style={{ height: 20, width: width }} />
-                }
             </View>
 
         </View>

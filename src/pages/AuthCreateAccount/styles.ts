@@ -7,27 +7,28 @@ const height = Dimensions.get("window").height;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#454ADE'
+        backgroundColor: '#454ADE',
+        justifyContent:'center'
     },
     header: {
-        padding: 35,
-        height: ((width / 1.47)),
+        height: height * 0.35,
         width: width,
-        alignItems: 'center',
+        flexDirection: 'row',
         justifyContent: 'center',
-        alignContent: 'center'
+        padding: 35
     },
     containerForm: {
         width: width,
-        height: (height - (width / 1.47)),
+        height: '65%',
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-evenly',
+        alignContent: 'center'
     },
     inputView: {
         width: width - 80,
-        height: 60,
+        height: width * 0.14,
         backgroundColor: 'white',
-        borderRadius: (width - 80) / 2,
+        borderRadius: 25,
         elevation: 3,
         shadowOffset: { width: 5, height: 5 },
         shadowColor: "black",
@@ -38,11 +39,12 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         justifyContent: 'center',
         alignItems: 'center',
-        height: 60, width: 50
+        height: width * 0.14,
+        width: width * 0.15
     },
     input: {
         width: width - 160,
-        height: 60,
+        height: width * 0.14,
         fontSize: 20
     },
     gradeLine: {
@@ -52,13 +54,13 @@ const styles = StyleSheet.create({
     },
     submit: {
         width: width - 140,
-        height: 65,
+        height: width * 0.14,
         backgroundColor: '#7209B7',
-        borderRadius: 65 / 2,
+        borderRadius: 65 / 3,
         alignContent: 'center',
         justifyContent: 'center',
         alignItems: 'center',
-        elevation: 2,
+        elevation: 3,
         shadowOffset: { width: 5, height: 5 },
         shadowColor: "black",
         shadowOpacity: 0.5,
@@ -69,8 +71,8 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     viewSubmit: {
-        height: 100,
-        width: width,
+
+        height: width * 0.25,
         alignContent: 'center',
         justifyContent: 'center',
         alignItems: 'center'
