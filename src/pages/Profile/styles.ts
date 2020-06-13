@@ -25,18 +25,16 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 5, height: 5 },
         shadowColor: "black",
         shadowOpacity: 0.5,
-        fontSize: 20,
         shadowRadius: 10,
     },
 
     textProfile: {
-        top: 5,
         color: 'white',
-        fontSize: 26
+        fontSize: width*0.06
     },
     textInfo: {
         color: 'black',
-        fontSize: 16
+        fontSize: width*0.05
     },
     submit: {
         width: width - 140,
@@ -54,7 +52,7 @@ const styles = StyleSheet.create({
     },
     submitText: {
         color: 'white',
-        fontSize: 16
+        fontSize: width*0.05
     },
 
     tabNavigatorView: {

@@ -25,8 +25,9 @@ const styles = StyleSheet.create({
     textBalao: {
         top: -90,
         maxWidth: 140,
-        fontSize: 24
+        fontSize: width*0.06
     },
+
     containerForm: {
         width: width,
         height: '58%',
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
     },
     textCardItems: {
         color: 'white',
-        fontSize: 12
+        fontSize:    width*0.035
     }
 });
 export default styles;

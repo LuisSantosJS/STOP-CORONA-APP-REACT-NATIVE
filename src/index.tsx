@@ -10,6 +10,14 @@ const Routes = () => {
     const { userSaved, setUserSaved } = useSavedUser();
     const [loading, setLoading] = useState<boolean>(true);
 
+    useEffect(()=>{
+        auth().onAuthStateChanged((user)=>{
+            if(!user){
+                AsyncStorage.clear();
+            }
+        })
+    },[])
+
     useEffect(() => {
         async function loadUser() {
             try {
@@ -30,13 +38,6 @@ const Routes = () => {
         loadUser();
     }, []);
 
-    useEffect(()=>{
-        auth().onAuthStateChanged((user)=>{
-            if(!user){
-                AsyncStorage.clear();
-            }
-        })
-    },[])
 
     
 

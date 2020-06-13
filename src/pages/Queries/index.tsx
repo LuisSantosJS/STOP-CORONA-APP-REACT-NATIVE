@@ -29,10 +29,10 @@ const Queries: React.FC = () => {
     const { email } = useEmailUser();
     const { latitude } = useLatitude();
     const { longitude } = useLongitude();
-    const [question, setQuestion] = useState<string>('Você está com febre?');
+    const [question, setQuestion] = useState<string>('Olá, como você está?');
     const [valCount, setValCount] = useState<number>(0);
     const [simButton, setSimButton] = useState<string>('Sim');
-    const [visibleButtons, setVisibleButtons] = useState<boolean>(true);
+    const [visibleButtons, setVisibleButtons] = useState<boolean>(false);
     const [visibleBalao, setVisibleBalao] = useState<boolean>(false);
     const [naoButton, setNaoButton] = useState<string>('Não');
     const [result, setResult] = useState<arrayvalues[]>([]);
@@ -44,7 +44,7 @@ const Queries: React.FC = () => {
                 email: email,
                 latitude,
                 longitude,
-                porcent: Number((valCount*100)/5)
+                porcent: Number((valCount * 100) / 5)
             }).then(() => {
                 firestore().collection('results').doc(`${auth().currentUser?.uid}`).collection('resultados').doc(`${e.id}`).set(e);
             })
@@ -199,6 +199,11 @@ const Queries: React.FC = () => {
         }
     }
     useEffect(() => {
+        setTimeout(() => {
+            setQuestion('Você está com febre?');
+            setVisibleButtons(true);
+
+        }, 1000);
         return () => {
             console.log(result)
         }
@@ -213,20 +218,20 @@ const Queries: React.FC = () => {
                 </View>
                 <View style={[styles.containerForm]}>
                     <View style={[styles.casesView, { justifyContent: 'flex-end' }]}>
-                        <View style={{ width: '100%', padding: 20, flexDirection: 'row', height: '40%', top: 0, position: 'absolute' }}>
-                            <Image source={require('../../assets/docQueires.png')} />
-                            <Image source={require('../../assets/blos.png')} />
-                            <Text numberOfLines={4} ellipsizeMode='tail' style={{ top: 20, position: 'absolute', color: 'black', left: width / 3, right: width / 7, fontSize: 20, height: 100 }}>{question}</Text>
-                            {visibleBalao && <Text numberOfLines={2} ellipsizeMode='tail' style={{ top: 130, position: 'absolute', color: 'white', left: width / 4, right: width / 9, fontSize: 20, height: 100 }}>Vá ao Hospital!</Text>}
+                        <View style={{ width: '100%', padding: 5, flexDirection: 'row', height: '40%', top: 0, position: 'absolute', }}>
+                            <Image resizeMode={'contain'} source={require('../../assets/docQueires.png')} />
+                            <Image resizeMode={'contain'} source={require('../../assets/blos.png')} />
+                            <Text numberOfLines={4} ellipsizeMode='tail' style={{ top: width * 0.02, position: 'absolute', color: 'black', left: width / 3, right: width / 7, fontSize: width * 0.05, height: 100 }}>{question}</Text>
+                            {visibleBalao && <Text numberOfLines={2} ellipsizeMode='tail' style={{ top: width * 0.35, position: 'absolute', color: 'white', left: width / 4, right: width / 9, fontSize: width * 0.05, height: width * 0.10, }}>Vá ao Hospital!</Text>}
                         </View>
 
                         <View style={{ width: '100%', height: '40%', padding: 10, flexDirection: 'row', justifyContent: 'space-evenly' }}>
                             {visibleButtons && <>
                                 <TouchableOpacity style={styles.buttonSelector} onPress={() => SaveResult('sim')}>
-                                    <Text style={{ color: 'white', fontSize: 22 }}>{simButton}</Text>
+                                    <Text style={{ color: 'white', fontSize: width * 0.055 }}>{simButton}</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={styles.buttonSelector} onPress={() => SaveResult('nao')}>
-                                    <Text style={{ color: 'white', fontSize: 22 }} >{naoButton}</Text>
+                                    <Text style={{ color: 'white', fontSize: width * 0.055 }} >{naoButton}</Text>
                                 </TouchableOpacity>
                             </>}
 

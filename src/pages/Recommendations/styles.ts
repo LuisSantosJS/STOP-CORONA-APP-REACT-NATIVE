@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     },
     textHeader: {
         color: 'white',
-        fontSize: 24
+        fontSize: width * 0.07
     },
     tabNavigatorView: {
         height: '10%',
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     },
     textItem: {
         color: 'white',
-        fontSize: 24,
+        fontSize: width * 0.05,
         fontWeight: '400'
     },
     iconArrow: {

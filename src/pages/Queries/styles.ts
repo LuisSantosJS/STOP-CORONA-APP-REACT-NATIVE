@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     },
     textHeader: {
         color: 'white',
-        fontSize: 24
+        fontSize: width * 0.055
     },
     casesView: {
         height: '80%',
@@ -67,12 +67,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#141414'
     },
     buttonSelector: {
-        height: width * 0.18,
+        height: width * 0.15,
 
         alignContent: 'center',
         justifyContent: "center",
         alignItems: 'center',
-        width: width * 0.30,
+        width: width * 0.25,
         backgroundColor: '#3A0CA3',
         borderRadius: 20,
         elevation: 2,

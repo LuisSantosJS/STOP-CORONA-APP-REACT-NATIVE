@@ -46,9 +46,7 @@ const Profile: React.FC = () => {
 
     useEffect(() => {
         Keyboard.addListener('keyboardDidHide', handleBackButtonClick)
-        BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
         return () => {
-            BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
             Keyboard.removeListener('keyboardDidHide', handleBackButtonClick)
         };
     }, []);
@@ -82,7 +80,7 @@ const Profile: React.FC = () => {
 
                     {visibleName &&
                         <TextInput
-                            style={styles.inputView}
+                            style={[styles.inputView, { padding: (width * 0.16) / 4 }, styles.textInfo]}
                             value={nameUser}
                             onTouchStart={() => {
                                 setVisibleEmail(false);
@@ -90,18 +88,22 @@ const Profile: React.FC = () => {
                                 setVisibleTabBar(false);
                                 setVisibleSubmit(false);
                             }}
+                            onEndEditing={() => handleBackButtonClick()}
+                            onSubmitEditing={() => handleBackButtonClick()}
                             onChangeText={(e) => setNameUser(e)}
                         />}
 
                     {visibleEmail &&
-                        <View style={styles.inputView}>
-                            <Text style={styles.textInfo} >{email}</Text>
 
+                        <View style={[styles.inputView]}>
+                            <ScrollView style={{ flex: 1, padding: (width * 0.16) / 4 }} horizontal showsHorizontalScrollIndicator={false}>
+                                <Text style={[styles.textInfo]} >{email}</Text>
+                            </ScrollView>
                         </View>}
 
                     {visiblePassword &&
                         <TextInput
-                            style={[styles.inputView]}
+                            style={[styles.inputView, { padding: (width * 0.16) / 4 }, styles.textInfo]}
                             placeholder={'Digite a nova senha...'}
                             value={password}
                             secureTextEntry
@@ -112,6 +114,8 @@ const Profile: React.FC = () => {
                                 setVisibleTabBar(false);
                                 setVisibleSubmit(false);
                             }}
+                            onEndEditing={() => handleBackButtonClick()}
+                            onSubmitEditing={() => handleBackButtonClick()}
                             onChangeText={(e) => setPassword(e)}
                         />}
 
@@ -126,7 +130,8 @@ const Profile: React.FC = () => {
 
                 </View>
             </ImageBackground>
-            {visibleTapBar &&
+            {
+                visibleTapBar &&
                 <View style={styles.tabNavigatorView} >
                     <TouchableOpacity activeOpacity={1} style={[styles.buttomNavigator, { backgroundColor: '#F72585', top: -20 }]} onPress={() => LinkingWhatsapp()}>
                         <Image style={styles.iconButtomNavigator} resizeMode={'contain'} source={require('../../assets/share.png')} />
@@ -137,7 +142,8 @@ const Profile: React.FC = () => {
                     <TouchableOpacity activeOpacity={1} style={[styles.buttomNavigator, { backgroundColor: '#3A0CA3', top: -20 }]} onPress={() => navigation.navigate('Queries')}>
                         <Image style={styles.iconButtomNavigator} resizeMode={'contain'} source={require('../../assets/consulticon.png')} />
                     </TouchableOpacity>
-                </View>}
+                </View>
+            }
         </>
     );
 };

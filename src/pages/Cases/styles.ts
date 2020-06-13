@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     },
     textHeader: {
         color: 'white',
-        fontSize: 24
+        fontSize:     width*0.07
     },
     tabNavigatorView: {
         height: '10%',
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     },
     casesView: {
         maxHeight: '80%',
-        minHeight: '50%',
+        minHeight: '40%',
         alignContent: 'center',
         alignItems: "center",
         justifyContent: 'space-evenly',
@@ -64,11 +64,11 @@ const styles = StyleSheet.create({
     },
     textCasesTitle: {
         color: 'white',
-        fontSize: 32
+        fontSize:     width*0.07
     },
     textCasesDecription: {
         color: 'lightgrey',
-        fontSize: 26,
+        fontSize: width*0.05,
         fontWeight: 'bold'
     },
     viewSubmit: {
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     },
     submitText: {
         color: 'white',
-        fontSize: 20
+        fontSize: width*0.05
     },
 
     submit: {

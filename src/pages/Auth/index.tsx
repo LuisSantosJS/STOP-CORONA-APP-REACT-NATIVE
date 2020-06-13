@@ -44,9 +44,8 @@ const Auth: React.FC = () => {
 
     useEffect(() => {
         Keyboard.addListener('keyboardDidHide', handleBackButtonClick)
-        BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
         return () => {
-            BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+
             Keyboard.removeListener('keyboardDidHide', handleBackButtonClick)
         };
     }, []);
