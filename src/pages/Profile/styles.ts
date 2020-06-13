@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 5, height: 5 },
         shadowColor: "black",
         shadowOpacity: 0.5,
-        fontSize: 20, padding: 20,
+        fontSize: 20,
         shadowRadius: 10,
     },
 
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     },
     submitText: {
         color: 'white',
-        fontSize: 20
+        fontSize: 16
     },
 
     tabNavigatorView: {
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     },
     containerForm: {
         width: width,
-        height: '65%',
+        height: '60%',
         alignItems: 'center',
         justifyContent: 'space-evenly',
         alignContent: 'center'

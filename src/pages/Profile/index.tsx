@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     ImageBackground,
     Dimensions,
@@ -7,7 +7,9 @@ import {
     Text,
     Linking,
     TouchableOpacity,
-    TextInput
+    TextInput,
+    BackHandler,
+    Keyboard
 
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
@@ -26,6 +28,30 @@ const Profile: React.FC = () => {
     const navigation = useNavigation();
     const [nameUser, setNameUser] = useState<string>(name);
     const [password, setPassword] = useState<string>('');
+    const [visibleName, setVisibleName] = useState<boolean>(true);
+    const [visibleEmail, setVisibleEmail] = useState<boolean>(true);
+    const [visiblePassword, setVisiblePassword] = useState<boolean>(true);
+    const [visibleTapBar, setVisibleTabBar] = useState<boolean>(true);
+    const [visibleSubmit, setVisibleSubmit] = useState<boolean>(true);
+
+    function handleBackButtonClick() {
+        setVisibleEmail(true);
+        setVisibleName(true);
+        setVisiblePassword(true);
+        setVisibleTabBar(true);
+        setVisibleSubmit(true);
+        return true
+    }
+
+
+    useEffect(() => {
+        Keyboard.addListener('keyboardDidHide', handleBackButtonClick)
+        BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+        return () => {
+            BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+            Keyboard.removeListener('keyboardDidHide', handleBackButtonClick)
+        };
+    }, []);
 
 
 
@@ -54,49 +80,64 @@ const Profile: React.FC = () => {
                 </View>
                 <View style={[styles.containerForm]}>
 
+                    {visibleName &&
+                        <TextInput
+                            style={styles.inputView}
+                            value={nameUser}
+                            onTouchStart={() => {
+                                setVisibleEmail(false);
+                                setVisiblePassword(false);
+                                setVisibleTabBar(false);
+                                setVisibleSubmit(false);
+                            }}
+                            onChangeText={(e) => setNameUser(e)}
+                        />}
 
-                    <TextInput
-                        style={styles.inputView}
-                        value={nameUser}
-                        onChangeText={(e) => setNameUser(e)}
-                    />
-
-
-                    <View style={styles.inputView}>
-                        <ScrollView style={{ height: width * 0.16 }} horizontal showsHorizontalScrollIndicator={false}>
+                    {visibleEmail &&
+                        <View style={styles.inputView}>
                             <Text style={styles.textInfo} >{email}</Text>
-                        </ScrollView>
-                    </View>
+
+                        </View>}
+
+                    {visiblePassword &&
+                        <TextInput
+                            style={[styles.inputView]}
+                            placeholder={'Digite a nova senha...'}
+                            value={password}
+                            secureTextEntry
+
+                            onTouchStart={() => {
+                                setVisibleEmail(false);
+                                setVisibleName(false);
+                                setVisibleTabBar(false);
+                                setVisibleSubmit(false);
+                            }}
+                            onChangeText={(e) => setPassword(e)}
+                        />}
 
 
-                    <TextInput
-                        style={[styles.inputView]}
-                        placeholder={'Digite a nova senha...'}
-                        value={password}
-                        secureTextEntry
-                        onChangeText={(e) => setPassword(e)}
-                    />
-
-
-
-                    <RectButton style={[styles.submit]} onPress={handlePressSubmit} >
-                        <Text style={styles.submitText}>Alterar informações</Text>
-                    </RectButton>
+                    {visibleSubmit ?
+                        <RectButton style={[styles.submit]} onPress={handlePressSubmit} >
+                            <Text style={styles.submitText}>Alterar informações</Text>
+                        </RectButton> :
+                        <View style={{ height: width * 0.14, width: width }} />
+                    }
 
 
                 </View>
             </ImageBackground>
-            <View style={styles.tabNavigatorView} >
-                <TouchableOpacity activeOpacity={1} style={[styles.buttomNavigator, { backgroundColor: '#F72585', top: -20 }]} onPress={() => LinkingWhatsapp()}>
-                    <Image style={styles.iconButtomNavigator} resizeMode={'contain'} source={require('../../assets/share.png')} />
-                </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1} style={[styles.buttomNavigator, { backgroundColor: '#7209B7', top: -35 }]} onPress={() => navigation.goBack()}>
-                    <Image style={styles.iconButtomNavigator} resizeMode={'contain'} source={require('../../assets/homeicon.png')} />
-                </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1} style={[styles.buttomNavigator, { backgroundColor: '#3A0CA3', top: -20 }]} onPress={() => navigation.navigate('Queries')}>
-                    <Image style={styles.iconButtomNavigator} resizeMode={'contain'} source={require('../../assets/consulticon.png')} />
-                </TouchableOpacity>
-            </View>
+            {visibleTapBar &&
+                <View style={styles.tabNavigatorView} >
+                    <TouchableOpacity activeOpacity={1} style={[styles.buttomNavigator, { backgroundColor: '#F72585', top: -20 }]} onPress={() => LinkingWhatsapp()}>
+                        <Image style={styles.iconButtomNavigator} resizeMode={'contain'} source={require('../../assets/share.png')} />
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} style={[styles.buttomNavigator, { backgroundColor: '#7209B7', top: -35 }]} onPress={() => navigation.goBack()}>
+                        <Image style={styles.iconButtomNavigator} resizeMode={'contain'} source={require('../../assets/homeicon.png')} />
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} style={[styles.buttomNavigator, { backgroundColor: '#3A0CA3', top: -20 }]} onPress={() => navigation.navigate('Queries')}>
+                        <Image style={styles.iconButtomNavigator} resizeMode={'contain'} source={require('../../assets/consulticon.png')} />
+                    </TouchableOpacity>
+                </View>}
         </>
     );
 };
