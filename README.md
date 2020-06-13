@@ -1,6 +1,6 @@
 # STOP-CORONA-APP-REACT-NATIVE
 
-0.462053571428571
+
 
 ![0](https://github.com/LuisSantosJS/STOP-CORONA-APP-REACT-NATIVE/raw/master/assets/0.png)
 
