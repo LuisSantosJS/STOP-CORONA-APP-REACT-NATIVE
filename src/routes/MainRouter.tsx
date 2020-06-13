@@ -16,7 +16,7 @@ const AppStack = createStackNavigator();
 const MainRouter: React.FC = () => {
     return (
         <NavigationContainer>
-            <StatusBar translucent barStyle="light-content" backgroundColor='#454ADE' />
+            <StatusBar translucent barStyle="light-content" backgroundColor='transparent' />
             <AppStack.Navigator
                 headerMode='none'>
                 <AppStack.Screen

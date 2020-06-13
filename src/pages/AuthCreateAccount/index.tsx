@@ -6,16 +6,17 @@ import {
     TextInput,
     Dimensions,
     Text,
-    Platform,
-    KeyboardAvoidingView
+    Keyboard,
+    BackHandler
 } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { useSavedUser } from '../../context/contextRouter';
 import AsyncStorage from '@react-native-community/async-storage';
 import firebase from '@react-native-firebase/app';
 import styles from './styles';
+import { useNavigation } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
-import { RectButton, ScrollView } from 'react-native-gesture-handler';
+import { RectButton } from 'react-native-gesture-handler';
 import * as EmailValidator from 'email-validator';
 import Toast from 'react-native-simple-toast';
 const width = Dimensions.get("window").width;
@@ -25,8 +26,36 @@ const AuthCreate: React.FC = () => {
     const [name, setName] = useState<string>('');
     const { setUserSaved } = useSavedUser();
     const [email, setEmail] = useState<string>('');
+    const navigation = useNavigation();
     const [password, setPassword] = useState<string>('');
     const [confirmPassword, setConfirmPassword] = useState<string>('');
+    const [visibleEmail, setVisibleEmail] = useState<boolean>(true);
+    const [visibleName, setVisibleName] = useState<boolean>(true);
+    const [visiblePassword, setVisiblePassword] = useState<boolean>(true);
+    const [visibleconfirmPassword, setVisibleConfirmPassword] = useState<boolean>(true);
+    const [visibleSubmit, setVisibleSubmit] = useState<boolean>(true);
+
+
+
+    function handleBackButtonClick() {
+        setVisibleEmail(true);
+        setVisibleName(true);
+        setVisiblePassword(true);
+        setVisibleConfirmPassword(true);
+        setVisibleSubmit(true);
+        return true
+    }
+
+
+    useEffect(() => {
+        Keyboard.addListener('keyboardDidHide', handleBackButtonClick)
+        BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+        return () => {
+            BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+            Keyboard.removeListener('keyboardDidHide', handleBackButtonClick)
+        };
+    }, []);
+
 
     function handleSubmit() {
         const emailVerific = EmailValidator.validate(email.toLowerCase());
@@ -82,66 +111,96 @@ const AuthCreate: React.FC = () => {
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor={'#454ADE'} />
-
-
-            <View style={styles.header}>
+            <View style={[styles.header,{top: !visibleSubmit ? width*0.15 : 0}]}>
                 <Image source={require('../../assets/logo.png')} />
             </View>
             <View style={styles.containerForm}>
-                <View style={[styles.inputView, { flexDirection: 'row' }]}>
-                    <View style={styles.inputViewImage}>
-                        <Image style={{ padding: 15 }} source={require('../../assets/person-24px.png')} />
+                {visibleName &&
+                    <View style={[styles.inputView, { flexDirection: 'row' }]}>
+                        <View style={styles.inputViewImage}>
+                            <Image style={{ padding: 15 }} source={require('../../assets/person-24px.png')} />
+                        </View>
+                        <TextInput
+                            style={styles.input}
+                            placeholder={'Nome'}
+                            onTouchStart={() => {
+                                setVisibleConfirmPassword(false);
+                                setVisibleEmail(false);
+                                setVisiblePassword(false);
+                                setVisibleSubmit(false);
+                            }}
+                            onChangeText={(e) => setName(e)}
+                            value={name}
+                        />
                     </View>
-                    <TextInput
-                        style={styles.input}
-                        placeholder={'Nome'}
-                        onChangeText={(e) => setName(e)}
-                        value={name}
-                    />
-                </View>
-
-                <View style={[styles.inputView, { flexDirection: 'row' }]}>
-                    <View style={styles.inputViewImage}>
-                        <Image style={{ padding: 15 }} source={require('../../assets/logoemail.png')} />
+                }
+                {visibleEmail &&
+                    <View style={[styles.inputView, { flexDirection: 'row' }]}>
+                        <View style={styles.inputViewImage}>
+                            <Image style={{ padding: 15 }} source={require('../../assets/logoemail.png')} />
+                        </View>
+                        <TextInput
+                            style={styles.input}
+                            placeholder={'Email'}
+                            onTouchStart={() => {
+                                setVisibleConfirmPassword(false);
+                                setVisibleName(false);
+                                setVisiblePassword(false);
+                                setVisibleSubmit(false);
+                            }}
+                            keyboardType='email-address'
+                            onChangeText={(e) => setEmail(e)}
+                            value={email}
+                        />
                     </View>
-                    <TextInput
-                        style={styles.input}
-                        placeholder={'Email'}
-                        keyboardType='email-address'
-                        onChangeText={(e) => setEmail(e)}
-                        value={email}
-                    />
-                </View>
-                <View style={[styles.inputView, { flexDirection: 'row' }]}>
-                    <View style={styles.inputViewImage}>
-                        <Image style={{ padding: 15 }} source={require('../../assets/logopassword.png')} />
+                }
+                {visiblePassword &&
+                    <View style={[styles.inputView, { flexDirection: 'row' }]}>
+                        <View style={styles.inputViewImage}>
+                            <Image style={{ padding: 15 }} source={require('../../assets/logopassword.png')} />
+                        </View>
+                        <TextInput
+                            style={styles.input}
+                            placeholder={'Senha'}
+                            secureTextEntry
+                            onTouchStart={() => {
+                                setVisibleConfirmPassword(false);
+                                setVisibleName(false);
+                                setVisibleEmail(false);
+                                setVisibleSubmit(false);
+                            }}
+                            onChangeText={(e) => setPassword(e)}
+                            value={password}
+                        />
                     </View>
-                    <TextInput
-                        style={styles.input}
-                        placeholder={'Senha'}
-                        secureTextEntry
-                        onChangeText={(e) => setPassword(e)}
-                        value={password}
-                    />
-                </View>
-
-                <View style={[styles.inputView, { flexDirection: 'row' }]}>
-                    <View style={styles.inputViewImage}>
-                        <Image style={{ padding: 15 }} source={require('../../assets/logopassword.png')} />
+                }
+                {visibleconfirmPassword &&
+                    <View style={[styles.inputView, { flexDirection: 'row' }]}>
+                        <View style={styles.inputViewImage}>
+                            <Image style={{ padding: 15 }} source={require('../../assets/logopassword.png')} />
+                        </View>
+                        <TextInput
+                            style={styles.input}
+                            placeholder={'Confirmar Senha'}
+                            secureTextEntry
+                            onTouchStart={() => {
+                                setVisiblePassword(false);
+                                setVisibleName(false);
+                                setVisibleEmail(false);
+                                setVisibleSubmit(false);
+                            }}
+                            onChangeText={(e) => setConfirmPassword(e)}
+                            value={confirmPassword}
+                        />
                     </View>
-                    <TextInput
-                        style={styles.input}
-                        placeholder={'Confirmar Senha'}
-                        secureTextEntry
-                        onChangeText={(e) => setConfirmPassword(e)}
-                        value={confirmPassword}
-                    />
-                </View>
-                <View style={styles.viewSubmit}>
-                    <RectButton style={[styles.submit]} onPress={handleSubmit}>
-                        <Text style={styles.submitText}>Criar Conta</Text>
-                    </RectButton>
-                </View>
+                }
+                {visibleSubmit &&
+                    <View style={styles.viewSubmit}>
+                        <RectButton style={[styles.submit]} onPress={handleSubmit}>
+                            <Text style={styles.submitText}>Criar Conta</Text>
+                        </RectButton>
+                    </View>
+                }
             </View>
 
         </View>

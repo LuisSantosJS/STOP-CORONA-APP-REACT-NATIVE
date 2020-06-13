@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     },
     containerForm: {
         width: width,
-        height: '65%',
+        height: '60%',
         alignItems: 'center',
         justifyContent: 'space-evenly',
         alignContent: 'center'
@@ -72,12 +72,12 @@ const styles = StyleSheet.create({
     },
     textItem: {
         color: 'white',
-        fontSize: 28,
+        fontSize: 24,
         fontWeight: '400'
     },
     iconArrow: {
-        height: width*0.10,
-        width: width*0.10,
+        height: width*0.02,
+        width: width*0.02,
         position: 'absolute',
         alignContent: 'center',
         justifyContent: 'center',

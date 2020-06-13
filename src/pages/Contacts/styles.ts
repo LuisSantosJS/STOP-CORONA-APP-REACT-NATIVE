@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     },
     containerForm: {
         width: width,
-        height: '65%',
+        height: '60%',
         alignItems: 'center',
         justifyContent: 'space-evenly',
         alignContent: 'center'
