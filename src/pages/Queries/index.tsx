@@ -178,10 +178,10 @@ const Queries: React.FC = () => {
                                 writeServer();
 
                                 if (valCount === 0) {
-                                    setQuestion('Você aparenta estar bem!');
+                                    setQuestion('Você aparenta estar bem, estarei aqui para ajudar no que for necessário!');
                                     setVisibleButtons(false);
                                 } else {
-                                    setQuestion('Você não está bem!');
+                                    setQuestion('Você não está bem... Por favor procure ajuda em algum posto de saúde!');
                                     setVisibleBalao(true);
                                 }
 
@@ -218,11 +218,10 @@ const Queries: React.FC = () => {
                 </View>
                 <View style={[styles.containerForm]}>
                     <View style={[styles.casesView, { justifyContent: 'flex-end' }]}>
-                        <View style={{ width: '100%', padding: 5, flexDirection: 'row', height: '40%', top: 0, position: 'absolute', }}>
+                        <View style={{ width: '100%', padding: 5, flexDirection: 'row', height: '60%', top: 0, position: 'absolute', }}>
                             <Image resizeMode={'contain'} source={require('../../assets/docQueires.png')} />
                             <Image resizeMode={'contain'} source={require('../../assets/blos.png')} />
-                            <Text numberOfLines={4} ellipsizeMode='tail' style={{ top: width * 0.02, position: 'absolute', color: 'black', left: width / 3, right: width / 7, fontSize: width * 0.05, height: 100 }}>{question}</Text>
-                            {visibleBalao && <Text numberOfLines={2} ellipsizeMode='tail' style={{ top: width * 0.35, position: 'absolute', color: 'white', left: width / 4, right: width / 9, fontSize: width * 0.05, height: width * 0.10, }}>Vá ao Hospital!</Text>}
+                            <Text numberOfLines={5} ellipsizeMode='tail' style={{ top: width * 0.02, position: 'absolute', color: 'black', left: width / 3, right: width / 7, fontSize: width * 0.05, height: undefined }}>{question}</Text>
                         </View>
 
                         <View style={{ width: '100%', height: '40%', padding: 10, flexDirection: 'row', justifyContent: 'space-evenly' }}>
@@ -254,3 +253,6 @@ const Queries: React.FC = () => {
     );
 }
 export default Queries;
+
+
+//                            {visibleBalao && <Text numberOfLines={2} ellipsizeMode='tail' style={{ top: width * 0.35, position: 'absolute', color: 'white', left: width / 4, right: width / 9, fontSize: width * 0.05, height: undefined, }}>Vá ao Hospital!</Text>}

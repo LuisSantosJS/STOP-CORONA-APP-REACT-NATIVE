@@ -28,7 +28,7 @@ const AuthCreate: React.FC = () => {
     const [email, setEmail] = useState<string>('');
     const navigation = useNavigation();
     const [password, setPassword] = useState<string>('');
-    const [confirmPassword, setConfirmPassword] = useState<string>('');
+    const [telephone, setTelephone] = useState<string>('');
     const [visibleEmail, setVisibleEmail] = useState<boolean>(true);
     const [visibleName, setVisibleName] = useState<boolean>(true);
     const [visiblePassword, setVisiblePassword] = useState<boolean>(true);
@@ -58,10 +58,11 @@ const AuthCreate: React.FC = () => {
     function handleSubmit() {
         const emailVerific = EmailValidator.validate(email.toLowerCase());
         if (emailVerific) {
-            if (password !== confirmPassword) {
-                setPassword('');
-                setConfirmPassword('');
-                return Toast.showWithGravity('Senhas diferentes!', Toast.LONG, Toast.TOP);
+            if (password.length == 0) {
+                return Toast.showWithGravity('Insira sua senha!', Toast.LONG, Toast.TOP);
+            }
+            if (!telephone.length) {
+                return Toast.showWithGravity('Insira seu telefone!', Toast.LONG, Toast.TOP);
             }
             if (!name.length) {
                 return Toast.showWithGravity('Insira seu Nome!', Toast.LONG, Toast.TOP);
@@ -85,6 +86,7 @@ const AuthCreate: React.FC = () => {
         const DATA = {
             name,
             email,
+            telefone: telephone,
             id: ID,
             createTimestamp: Number(firestore.Timestamp.now().toMillis())
         };
@@ -109,7 +111,7 @@ const AuthCreate: React.FC = () => {
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor={'#454ADE'} />
-            <View style={[styles.header,{top: !visibleSubmit ? width*0.15 : 0}]}>
+            <View style={[styles.header, { top: !visibleSubmit ? width * 0.15 : 0 }]}>
                 <Image source={require('../../assets/logo.png')} />
             </View>
             <View style={styles.containerForm}>
@@ -129,6 +131,26 @@ const AuthCreate: React.FC = () => {
                             }}
                             onChangeText={(e) => setName(e)}
                             value={name}
+                        />
+                    </View>
+                }
+                {visibleconfirmPassword &&
+                    <View style={[styles.inputView, { flexDirection: 'row' }]}>
+                        <View style={styles.inputViewImage}>
+                            <Image style={{ padding: 15, height: 18, width: 18 }} resizeMode={'cover'} source={require('../../assets/telephone.png')} />
+                        </View>
+                        <TextInput
+                            style={styles.input}
+                            placeholder={'telefone celular'}
+                            keyboardType={'numeric'}
+                            onTouchStart={() => {
+                                setVisiblePassword(false);
+                                setVisibleName(false);
+                                setVisibleEmail(false);
+                                setVisibleSubmit(false);
+                            }}
+                            onChangeText={(e) => setTelephone(e)}
+                            value={telephone}
                         />
                     </View>
                 }
@@ -169,26 +191,6 @@ const AuthCreate: React.FC = () => {
                             }}
                             onChangeText={(e) => setPassword(e)}
                             value={password}
-                        />
-                    </View>
-                }
-                {visibleconfirmPassword &&
-                    <View style={[styles.inputView, { flexDirection: 'row' }]}>
-                        <View style={styles.inputViewImage}>
-                            <Image style={{ padding: 15 }} source={require('../../assets/logopassword.png')} />
-                        </View>
-                        <TextInput
-                            style={styles.input}
-                            placeholder={'Confirmar Senha'}
-                            secureTextEntry
-                            onTouchStart={() => {
-                                setVisiblePassword(false);
-                                setVisibleName(false);
-                                setVisibleEmail(false);
-                                setVisibleSubmit(false);
-                            }}
-                            onChangeText={(e) => setConfirmPassword(e)}
-                            value={confirmPassword}
                         />
                     </View>
                 }

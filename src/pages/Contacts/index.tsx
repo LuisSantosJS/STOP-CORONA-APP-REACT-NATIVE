@@ -24,12 +24,12 @@ const Contacts: React.FC = () => {
                 </View>
                 <View style={[styles.containerForm]}>
                     <View style={[styles.gradeLine]} />
-                    <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: width * 0.07 }}>Contato de auto ajuda</Text>
-                    <Text style={{ fontSize: width * 0.05 }}>188</Text>
+                    <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: width * 0.05, fontWeight: 'bold' }}>Contato de auto ajuda</Text>
+                    <Text style={{ fontSize: width * 0.04 }}>188</Text>
                     <View style={[styles.gradeLine]} />
-                    <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: width * 0.07 }}>Contato dos desenvolvedores</Text>
-                    <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: width * 0.05 }}>dasilvasantosluisfelipe@gmail.com</Text>
-                    <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: width * 0.05 }}>querytena@gmail.com</Text>
+                    <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: width * 0.05, fontWeight: 'bold' }}>Desenvolvedores</Text>
+                    <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: width * 0.04 }}>dasilvasantosluisfelipe@gmail.com</Text>
+                    <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: width * 0.04 }}>querytena@gmail.com</Text>
                     <View style={[styles.gradeLine]} />
                 </View>
             </ImageBackground>

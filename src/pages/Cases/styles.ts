@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     },
     textHeader: {
         color: 'white',
-        fontSize:     width*0.07
+        fontSize: width * 0.055
     },
     tabNavigatorView: {
         height: '10%',
@@ -64,11 +64,11 @@ const styles = StyleSheet.create({
     },
     textCasesTitle: {
         color: 'white',
-        fontSize:     width*0.07
+        fontSize:     width*0.055
     },
     textCasesDecription: {
         color: 'lightgrey',
-        fontSize: width*0.05,
+        fontSize: width*0.04,
         fontWeight: 'bold'
     },
     viewSubmit: {

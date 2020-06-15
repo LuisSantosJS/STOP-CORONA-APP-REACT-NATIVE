@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 
     textProfile: {
         color: 'white',
-        fontSize: width*0.06
+        fontSize: width * 0.055
     },
     textInfo: {
         color: 'black',
