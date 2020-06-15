@@ -25,6 +25,8 @@ type ContextType = {
     setSource: (value: string) => void;
     update: string;
     setUpdate: (value: string) => void;
+    phoneNumber: string;
+    setPhoneNumber: (value: string) => void;
 
 
 };
@@ -54,6 +56,9 @@ const ContextApp = createContext<ContextType>({
     setSource: (value: string) => { },
     update: '',
     setUpdate: (value: string) => { },
+    phoneNumber: '',
+    setPhoneNumber: (value: string) => { },
+
 
 
 });
@@ -65,6 +70,7 @@ const ContextApp = createContext<ContextType>({
 const ProviderAuth: React.FC = ({ children }) => {
     const [userSaved, setUserSaved] = useState<boolean>(false);
     const [name, setName] = useState<string>('');
+    const [phoneNumber, setPhoneNumber] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [infected, setInfected] = useState<number>(0);
     const [recovered, setRecovered] = useState<number>(0);
@@ -95,9 +101,10 @@ const ProviderAuth: React.FC = ({ children }) => {
     }, [])
 
     async function loadUser() {
-        const { name, email } = await UserData();
+        const { name, email, telefone } = await UserData();
         setName(name);
         setEmail(email);
+        setPhoneNumber(telefone);
     }
 
     function getPosition() {
@@ -148,7 +155,9 @@ const ProviderAuth: React.FC = ({ children }) => {
             source,
             setSource,
             update,
-            setUpdate
+            setUpdate,
+            phoneNumber,
+            setPhoneNumber
 
         }}>
             {children}
@@ -162,6 +171,11 @@ export function useSavedUser() {
     const infoUser: ContextType = useContext(ContextApp);
     const { userSaved, setUserSaved } = infoUser;
     return { userSaved, setUserSaved };
+}
+export function usePhoneNumber() {
+    const infoUser: ContextType = useContext(ContextApp);
+    const { phoneNumber, setPhoneNumber } = infoUser;
+    return { phoneNumber, setPhoneNumber };
 }
 
 export function useNameUser() {

@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
-import { useNameUser, useEmailUser, useLatitude, useLongitude } from '../../context/contextRouter';
+import { useNameUser, useEmailUser, useLatitude, useLongitude, usePhoneNumber } from '../../context/contextRouter';
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 import styles from './styles';
@@ -27,6 +27,7 @@ const Queries: React.FC = () => {
     const navigation = useNavigation();
     const { name } = useNameUser();
     const { email } = useEmailUser();
+    const { phoneNumber } = usePhoneNumber();
     const { latitude } = useLatitude();
     const { longitude } = useLongitude();
     const [question, setQuestion] = useState<string>('Olá, como você está?');
@@ -42,6 +43,7 @@ const Queries: React.FC = () => {
             firestore().collection('results').doc(`${auth().currentUser?.uid}`).set({
                 nome: name,
                 email: email,
+                telefone: phoneNumber,
                 latitude,
                 longitude,
                 porcent: Number((valCount * 100) / 5)
