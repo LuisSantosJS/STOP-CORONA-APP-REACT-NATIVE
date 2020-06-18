@@ -107,8 +107,19 @@ const Queries: React.FC = () => {
             setLoadingSubmitSymptms(true);
             const R = result.length;
             const A = resultAlarm.length;
-            console.log('result', ((R * 100) / 12), '%');
-            console.log('alarm', ((A * 100) / 10), '%');
+            const Rporcent = ((R * 100) / 12);
+            const Aporcent = ((A * 100) / 10);
+            firestore().collection(`${auth().currentUser?.uid}`).add({
+                email,
+                latitude,
+                longitude,
+                nome: name,
+                symtomps: Rporcent,
+                alarm: Aporcent,
+                telefone: phoneNumber
+
+            })
+
 
 
         }
