@@ -29,7 +29,9 @@ const Contacts: React.FC = () => {
                     <View style={[styles.gradeLine]} />
                     <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: width * 0.05, fontWeight: 'bold' }}>Desenvolvedores</Text>
                     <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: width * 0.04 }}>dasilvasantosluisfelipe@gmail.com</Text>
-                    <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: width * 0.04 }}>querytena@gmail.com</Text>
+                    <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: width * 0.04 }}>isalves1002@gmail.com</Text>
+                    <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: width * 0.04 }}>luizflpcapi@gmail.com</Text>
+                    <Text numberOfLines={2} ellipsizeMode='tail' style={{ fontSize: width * 0.04 }}>wydemairomsilva@gmail.com</Text>
                     <View style={[styles.gradeLine]} />
                 </View>
             </ImageBackground>

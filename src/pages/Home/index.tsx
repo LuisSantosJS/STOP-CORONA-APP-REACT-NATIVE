@@ -37,7 +37,7 @@ const Home: React.FC = () => {
                         </TouchableOpacity >
                         <TouchableOpacity activeOpacity={0.7} style={[styles.cardItems, { backgroundColor: '#3A0CA3' }]} onPress={() => navigation.navigate('Queries')}>
                             <Image resizeMode={'contain'} style={{ width: '40%', height: '40%' }} source={require('../../assets/queries.png')} />
-                            <Text style={styles.textCardItems}>Consulta Virtual</Text>
+                            <Text style={styles.textCardItems}>Auto Avaliação</Text>
                         </TouchableOpacity >
 
                     </View>

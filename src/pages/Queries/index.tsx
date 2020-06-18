@@ -5,24 +5,28 @@ import {
     Image,
     Text,
     TouchableOpacity,
-    Dimensions
+    Dimensions,
+    ActivityIndicator
 
 } from 'react-native';
+import CheckBox from '@react-native-community/checkbox';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
+import Toast from 'react-native-simple-toast';
 import { useNameUser, useEmailUser, useLatitude, useLongitude, usePhoneNumber } from '../../context/contextRouter';
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 import styles from './styles';
 import LinkingWhatsapp from '../../functions/LinkWhatsapp';
 import { useNavigation } from '@react-navigation/native';
-
+import { FlatList, ScrollView } from 'react-native-gesture-handler';
+import SYMPTOMS from './symptoms';
+import ALARM from './alarm';
 
 const Queries: React.FC = () => {
     interface arrayvalues {
         id: number,
-        sintoma: string,
-        status: boolean
+        sintoma: string
     }
     const navigation = useNavigation();
     const { name } = useNameUser();
@@ -30,213 +34,136 @@ const Queries: React.FC = () => {
     const { phoneNumber } = usePhoneNumber();
     const { latitude } = useLatitude();
     const { longitude } = useLongitude();
-    const [question, setQuestion] = useState<string>('Olá, como você está?');
-    const [valCount, setValCount] = useState<number>(0);
-    const [simButton, setSimButton] = useState<string>('Sim');
-    const [visibleButtons, setVisibleButtons] = useState<boolean>(false);
-    const [visibleBalao, setVisibleBalao] = useState<boolean>(false);
-    const [naoButton, setNaoButton] = useState<string>('Não');
+    const [loadindSubmitSymptoms, setLoadingSubmitSymptms] = useState<boolean>(false);
+    const [sinaisAlarm, setSinaisAlarm] = useState<boolean>(false);
+    const [valueSintomas, setValueSintomas] = useState<boolean>(false);
+    const [valueAlarm, setValueAlarm] = useState<boolean>(false);
+    const [valueAgreement, setValueAgreement] = useState<boolean>(false);
+    const [valueCheckBox, setValueCheckBox] = useState<boolean>(false);
     const [result, setResult] = useState<arrayvalues[]>([]);
-    const [count, setCount] = useState<number>(0);
-    function writeServer() {
-        result.forEach(e => {
-            firestore().collection('results').doc(`${auth().currentUser?.uid}`).set({
-                nome: name,
-                email: email,
-                telefone: phoneNumber,
-                latitude,
-                longitude,
-                porcent: Number((valCount * 100) / 5)
-            }).then(() => {
-                firestore().collection('results').doc(`${auth().currentUser?.uid}`).collection('resultados').doc(`${e.id}`).set(e);
-            })
-        });
+    const [resultAlarm, setResultAlarm] = useState<arrayvalues[]>([]);
 
+    function RenderSymptoms(item: arrayvalues, index: number) {
+        return (
+            <View key={item.id} style={styles.itemViewList}>
+                <TouchableOpacity activeOpacity={0.7} style={[styles.itemViewListTouchable, result.map(e => item.id == e.id ? { backgroundColor: '#454ADE' } : {})]} onPress={() => handleSelectSymptoms(item)}>
+                    <Text style={[styles.itemViewListTouchableText, result.map(e => item.id == e.id ? { color: 'white' } : {})]}>{item.sintoma}</Text>
+                </TouchableOpacity>
+            </View >
+        );
     }
 
-    function SaveResult(val: string) {
-        if (count === 0) {
-            if (val === 'sim') {
-                const value = {
-                    id: 0,
-                    sintoma: 'febre',
-                    status: true
-                };
-                setValCount(valCount + 1);
-                setResult(result => [...result, value]);
-                setCount(1);
-                setQuestion('Você está com falta de ar?');
-            }
-            if (val === 'nao') {
-                const value = {
-                    id: 0,
-                    sintoma: 'febre',
-                    status: false
-                };
-                setResult(result => [...result, value]);
-                setCount(1);
-                setQuestion('Você está com falta de ar?');
-            }
-        } else {
-            if (count === 1) {
-                if (val === 'sim') {
-                    const value = {
-                        id: 1,
-                        sintoma: 'falta de ar',
-                        status: true
-                    };
-                    setResult(result => [...result, value]);
-                    setCount(2);
-                    setValCount(valCount + 1);
-                    setQuestion('Você está com Tosse?');
-                }
-                if (val === 'nao') {
-                    const value = {
-                        id: 1,
-                        sintoma: 'falta de ar',
-                        status: false
-                    };
-                    setResult(result => [...result, value]);
-                    setCount(2);
-                    setQuestion('Você está com Tosse?');
-                }
+    function RenderAlarm(item: arrayvalues, index: number) {
+        return (
+            <View key={item.id} style={styles.itemViewList}>
+                <TouchableOpacity activeOpacity={0.7} style={[styles.itemViewListTouchable, resultAlarm.map(e => item.id == e.id ? { backgroundColor: '#454ADE' } : {})]} onPress={() => handleSelectAlarm(item)}>
+                    <Text style={[styles.itemViewListTouchableText, resultAlarm.map(e => item.id == e.id ? { color: 'white' } : {})]}>{item.sintoma}</Text>
+                </TouchableOpacity>
+            </View >
+        );
+    }
+
+    function handleSelectSymptoms(item: arrayvalues) {
+        if (loadindSubmitSymptoms === false) {
+            const alreadySelected = result.findIndex(e => e.id === item.id);
+            if (alreadySelected >= 0) {
+                const filterSymptoms = result.filter(e => e.id !== item.id);
+                setResult([]);
+                setResult(filterSymptoms)
             } else {
-                if (count === 2) {
-                    if (val === 'sim') {
-                        const value = {
-                            id: 2,
-                            sintoma: 'tosse',
-                            status: true
-                        };
-                        setResult(result => [...result, value]);
-                        setCount(3);
-                        setValCount(valCount + 1);
-                        setQuestion('Você está com Mal estar?');
-                    }
-                    if (val === 'nao') {
-                        const value = {
-                            id: 2,
-                            sintoma: 'tosse',
-                            status: false
-                        };
-                        setResult(result => [...result, value]);
-                        setCount(3);
-                        setQuestion('Você está com Mal estar?');
-                    }
-                } else {
-                    if (count === 3) {
-                        if (val === 'sim') {
-                            const value = {
-                                id: 3,
-                                sintoma: 'mal estar',
-                                status: true
-                            };
-                            setResult(result => [...result, value]);
-                            setCount(4);
-                            setValCount(valCount + 1);
-                            setQuestion('Corrimento nasal?');
-                        }
-                        if (val === 'nao') {
-                            const value = {
-                                id: 3,
-                                sintoma: 'mal estar',
-                                status: false
-                            };
-                            setResult(result => [...result, value]);
-                            setCount(4);
-                            setQuestion('Corrimento nasal?');
-                        }
-                    } else {
-                        if (count === 4) {
-                            if (val === 'sim') {
-                                const value = {
-                                    id: 4,
-                                    sintoma: 'corrimento nasal',
-                                    status: true
-                                };
-                                setValCount(valCount + 1);
-                                setResult(result => [...result, value]);
-                                setCount(5);
-                                setNaoButton('Mapa');
-                                setSimButton('OK');
-                                writeServer();
-
-                                if (valCount !== 0) {
-                                    setQuestion('Você não está bem!');
-                                    setVisibleBalao(true);
-                                }
-
-                            }
-                            if (val === 'nao') {
-                                const value = {
-                                    id: 4,
-                                    sintoma: 'corrimento nasal',
-                                    status: false
-                                };
-                                setResult(result => [...result, value]);
-                                setCount(5);
-                                setNaoButton('Mapa');
-                                setSimButton('OK');
-                                writeServer();
-
-                                if (valCount === 0) {
-                                    setQuestion('Você aparenta estar bem, estarei aqui para ajudar no que for necessário!');
-                                    setVisibleButtons(false);
-                                } else {
-                                    setQuestion('Você não está bem... Por favor procure ajuda em algum posto de saúde!');
-                                    setVisibleBalao(true);
-                                }
-
-                            }
-                        } else {
-                            if (val == 'sim') {
-
-                            } else {
-                                navigation.navigate('QueriesMap');
-                            }
-                        }
-                    }
-                }
+                setResult([...result, item])
             }
         }
     }
-    useEffect(() => {
-        setTimeout(() => {
-            setQuestion('Você está com febre?');
-            setVisibleButtons(true);
 
-        }, 1000);
-        return () => {
-            console.log(result)
+    function handleSelectAlarm(item: arrayvalues) {
+        if (loadindSubmitSymptoms === false) {
+            const alreadySelected = resultAlarm.findIndex(e => e.id === item.id);
+            if (alreadySelected >= 0) {
+                const filterSymptoms = resultAlarm.filter(e => e.id !== item.id);
+                setResultAlarm([]);
+                setResultAlarm(filterSymptoms)
+            } else {
+                setResultAlarm([...resultAlarm, item])
+            }
         }
-    }, [])
+    }
+
+    function handleSubmit() {
+        if (!valueCheckBox) {
+            return Toast.showWithGravity('Precisamos de você esteja ciente das informações, selecione a caixa...', Toast.LONG, Toast.TOP);
+        }
+        setValueAgreement(true)
+        setValueSintomas(true)
+    }
+    function handleSubmitSymtomps() {
+        if (sinaisAlarm === false) {
+            setLoadingSubmitSymptms(true);
+
+            setSinaisAlarm(!sinaisAlarm);
+            setLoadingSubmitSymptms(false)
+        }
+        if (sinaisAlarm) {
+            setLoadingSubmitSymptms(true);
+            const R = result.length;
+            const A = resultAlarm.length;
+            console.log('result', ((R * 100) / 12), '%');
+            console.log('alarm', ((A * 100) / 10), '%');
+
+
+        }
+    }
 
     return (
         <>
             <ImageBackground style={styles.container} imageStyle={styles.containerHeader} source={require('../../assets/headerscreen.png')}>
-                <View style={[styles.containerHeader]}>
-                    <Image resizeMode={'contain'} source={require('../../assets/consu.png')} />
-                    <Text style={styles.textHeader}>Consulta Virtual</Text>
-                </View>
                 <View style={[styles.containerForm]}>
-                    <View style={[styles.casesView, { justifyContent: 'flex-end' }]}>
-                        <View style={{ width: '100%', padding: 5, flexDirection: 'row', height: '60%', top: 0, position: 'absolute', }}>
-                            <Image resizeMode={'contain'} source={require('../../assets/docQueires.png')} />
-                            <Image resizeMode={'contain'} source={require('../../assets/blos.png')} />
-                            <Text numberOfLines={5} ellipsizeMode='tail' style={{ top: width * 0.02, position: 'absolute', color: 'black', left: width / 3, right: width / 7, fontSize: width * 0.05, height: undefined }}>{question}</Text>
-                        </View>
-
-                        <View style={{ width: '100%', height: '40%', padding: 10, flexDirection: 'row', justifyContent: 'space-evenly' }}>
-                            {visibleButtons && <>
-                                <TouchableOpacity style={styles.buttonSelector} onPress={() => SaveResult('sim')}>
-                                    <Text style={{ color: 'white', fontSize: width * 0.055 }}>{simButton}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.buttonSelector} onPress={() => SaveResult('nao')}>
-                                    <Text style={{ color: 'white', fontSize: width * 0.055 }} >{naoButton}</Text>
+                    <View style={styles.viewHeader}>
+                        <Image resizeMode={'contain'} source={require('../../assets/docQueires.png')} />
+                    </View>
+                    <View style={styles.containerAgreement}>
+                        {!valueAgreement ? <>
+                            <Text style={styles.textTitle}>Olá {name}</Text>
+                            <Text style={styles.textBody} >
+                                Seja bem vindo a nossa plataforma de auto-avaliação,
+                                eu me chamo Felipe.
+                                Sou médico virtual e estou aqui para te ajudar.
+                        </Text>
+                            <Text style={styles.textBody}>
+                                Só lembrando, todo o nosso aplicativo está dentro das normas da OMS.
+                        </Text>
+                            <View style={styles.viewCheckBox}>
+                                <CheckBox
+                                    disabled={false}
+                                    onValueChange={() => setValueCheckBox(!valueCheckBox)}
+                                    value={valueCheckBox}
+                                />
+                                <Text>Estou ciente de todas as informações</Text>
+                            </View>
+                            <TouchableOpacity style={styles.submit} onPress={handleSubmit}>
+                                <Text style={styles.textSubmit}>Próximo</Text>
+                            </TouchableOpacity>
+                        </> : <>
+                                <Text style={styles.textTitle}>{!sinaisAlarm ? 'Antes de prosseguir' : 'Opa, quase lá.'}</Text>
+                                <Text style={styles.textBody} >{!sinaisAlarm ? 'O que você está sentindo no momento' : 'Marque os sintomas mais persistentes'}</Text>
+                                <View style={styles.scrollView}>
+                                    <FlatList
+                                        data={!sinaisAlarm ? SYMPTOMS : ALARM}
+                                        showsVerticalScrollIndicator
+                                        numColumns={2}
+                                        renderItem={({ item, index }) => !sinaisAlarm ? RenderSymptoms(item, index) : RenderAlarm(item, index)}
+                                        style={{ width: '100%', height: '100%', backgroundColor: '#FFF' }}
+                                        keyExtractor={(item: arrayvalues) => String(item.id)}
+                                    />
+                                </View>
+                                <TouchableOpacity style={styles.submit} onPress={handleSubmitSymtomps} >
+                                    {!loadindSubmitSymptoms ?
+                                        <Text style={styles.textSubmit}>{!sinaisAlarm ? 'Continuar' : 'concluir'}</Text>
+                                        :
+                                        <ActivityIndicator size='small' color="white" />
+                                    }
                                 </TouchableOpacity>
                             </>}
-
-                        </View>
                     </View>
                 </View>
             </ImageBackground>

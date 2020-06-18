@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         width: width - 80,
         height: width * 0.15,
         backgroundColor: 'white',
-        borderRadius: width*0.06,
+        borderRadius: width*0.04,
         elevation: 3,
         shadowOffset: { width: 5, height: 5 },
         shadowColor: "black",
@@ -76,8 +76,8 @@ const styles = StyleSheet.create({
     submit: {
         width: width - 140,
         height: width * 0.15,
-        backgroundColor: '#7209B7',
-        borderRadius: width*0.06,
+        backgroundColor: '#3A0CA3',
+        borderRadius: width*0.04,
         alignContent: 'center',
         justifyContent: 'center',
         alignItems: 'center',
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
         fontSize: 18
     },
     viewSubmitAndRecover: {
-        height: width * 0.25,
+        height: width * 0.35,
         width: width - 130,
         alignContent: 'center',
         justifyContent: 'space-between',

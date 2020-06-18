@@ -147,11 +147,11 @@ const Auth: React.FC = () => {
                         {Platform.OS == 'ios'
                             ?
                             <TouchableOpacity activeOpacity={0.9} style={[styles.submit]} onPress={handleSigIn}>
-                                <Text style={styles.submitText}>LOGIN</Text>
+                                <Text style={styles.submitText}>ENTRAR</Text>
                             </TouchableOpacity >
                             :
                             <RectButton activeOpacity={0.9} style={[styles.submit]} onPress={handleSigIn}>
-                                <Text style={styles.submitText}>LOGIN</Text>
+                                <Text style={styles.submitText}>ENTRAR</Text>
                             </RectButton>
                         }
                         <TouchableOpacity onPress={handleResetPassword}>
@@ -160,15 +160,7 @@ const Auth: React.FC = () => {
 
                     </View>
                 }
-                <View style={styles.gradeLineORView}>
-                    <View style={styles.gradeLineOR} />
-                    <Text style={styles.textRecoverPassword}>OU</Text>
-                    <View style={styles.gradeLineOR} />
-                </View>
-                <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate('AuthCreate')}>
-                    <Text style={styles.textRecoverPassword}>Não tem uma conta?</Text>
-                </TouchableOpacity>
-
+    
             </View>
         </ImageBackground>
 

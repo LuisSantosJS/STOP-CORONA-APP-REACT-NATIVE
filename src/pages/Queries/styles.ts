@@ -4,7 +4,8 @@ const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        justifyContent: 'center',
     },
     containerHeader: {
         width: width,
@@ -54,12 +55,17 @@ const styles = StyleSheet.create({
         height: '50%',
         width: '50%'
     },
+    viewHeader: {
+        height: '25%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%'
+    },
     containerForm: {
         width: width,
-        height: '60%',
+        height: '100%',
         alignItems: 'center',
-        justifyContent: 'space-evenly',
-        alignContent: 'center'
+        justifyContent: 'space-evenly'
     },
     gradeLine: {
         height: 1,
@@ -80,6 +86,77 @@ const styles = StyleSheet.create({
         shadowColor: "black",
         shadowOpacity: 0.5,
         shadowRadius: 10,
+    },
+    containerAgreement: {
+        width: '90%',
+        height: '50%',
+        borderRadius: width * 0.05,
+        backgroundColor: '#FFF',
+        justifyContent: 'space-evenly',
+        shadowColor: '#E5E5E5',
+        alignItems: 'center',
+        elevation: 2,
+        shadowOffset: { width: 2, height: 2 },
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+
+    },
+    viewCheckBox: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: '100%'
+
+    },
+    submit: {
+        height: width * 0.1,
+        width: width * 0.3,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: width * 0.04,
+        backgroundColor: '#3A0CA3'
+    },
+    textSubmit: {
+        color: 'white',
+        fontSize: width * 0.05
+    },
+    textTitle: {
+        color: '#191919',
+        fontSize: width * 0.06,
+        textAlign: 'center'
+    },
+    textBody: {
+        color: '#191919',
+        fontSize: width * 0.045,
+        textAlign: 'center'
+    },
+    scrollView: {
+        width: '100%',
+        height: width*0.4,
+
+    },
+    itemViewList:{
+        height: width*0.2,
+        alignContent: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: width/2.2,
+    },
+    itemViewListTouchable:{
+        alignContent: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+        padding: width*0.005,
+        borderRadius: width*0.05,
+        borderWidth: 0.2,
+        borderColor: 'black',
+        width: width / 2.4,
+         height: width * 0.15
+    },
+    itemViewListTouchableText:{
+        alignItems: 'center',
+        fontSize: width * 0.04,
+        color: 'black'
     }
 })
 export default styles;

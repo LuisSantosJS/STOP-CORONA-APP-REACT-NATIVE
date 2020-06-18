@@ -7,7 +7,6 @@ import {
     Dimensions,
     Text,
     Keyboard,
-    BackHandler
 } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { useSavedUser } from '../../context/contextRouter';

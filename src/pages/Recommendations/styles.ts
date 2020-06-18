@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        backgroundColor: '#3A0CA3',
+        backgroundColor: '#F72585',
         borderRadius: 20,
         padding: 30
     },
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         justifyContent: 'center',
         alignItems: 'center'
-    }
+    },
 
 
 });
