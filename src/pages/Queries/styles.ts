@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
         width: '90%',
         height: '50%',
         borderRadius: width * 0.05,
+        padding: 5,
         backgroundColor: '#FFF',
         justifyContent: 'space-evenly',
         shadowColor: '#E5E5E5',
@@ -104,6 +105,7 @@ const styles = StyleSheet.create({
     viewCheckBox: {
         flexDirection: 'row',
         alignItems: 'center',
+        justifyContent: 'space-evenly',
         width: '100%'
 
     },
@@ -126,34 +128,33 @@ const styles = StyleSheet.create({
     },
     textBody: {
         color: '#191919',
-        fontSize: width * 0.045,
+        fontSize: width * 0.04,
         textAlign: 'center'
     },
     scrollView: {
         width: '100%',
-        height: width*0.4,
+        height: width * 0.4,
 
     },
-    itemViewList:{
-        height: width*0.2,
+    itemViewList: {
+        height: width * 0.2,
         alignContent: 'center',
         justifyContent: 'center',
         alignItems: 'center',
-        width: width/2.2,
+        width: Platform.OS == 'ios' ? width / 2.3 : width / 2.2,
     },
-    itemViewListTouchable:{
+    itemViewListTouchable: {
         alignContent: 'center',
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
-        padding: width*0.005,
-        borderRadius: width*0.05,
-        borderWidth: 0.2,
+        borderRadius: width * 0.05,
+        borderWidth: width * 0.0009,
         borderColor: 'black',
         width: width / 2.4,
-         height: width * 0.15
+        height: width * 0.15
     },
-    itemViewListTouchableText:{
+    itemViewListTouchableText: {
         alignItems: 'center',
         fontSize: width * 0.04,
         color: 'black'

@@ -6,7 +6,9 @@ import {
     Text,
     TouchableOpacity,
     Dimensions,
-    ActivityIndicator
+    ActivityIndicator,
+    Linking,
+    Platform
 
 } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
@@ -34,10 +36,10 @@ const Queries: React.FC = () => {
     const { phoneNumber } = usePhoneNumber();
     const { latitude } = useLatitude();
     const { longitude } = useLongitude();
+    const [risco, setRisco] = useState<number>(0);
+    const [finalResult, setFinalResult] = useState<boolean>(false);
     const [loadindSubmitSymptoms, setLoadingSubmitSymptms] = useState<boolean>(false);
     const [sinaisAlarm, setSinaisAlarm] = useState<boolean>(false);
-    const [valueSintomas, setValueSintomas] = useState<boolean>(false);
-    const [valueAlarm, setValueAlarm] = useState<boolean>(false);
     const [valueAgreement, setValueAgreement] = useState<boolean>(false);
     const [valueCheckBox, setValueCheckBox] = useState<boolean>(false);
     const [result, setResult] = useState<arrayvalues[]>([]);
@@ -94,12 +96,19 @@ const Queries: React.FC = () => {
             return Toast.showWithGravity('Precisamos de você esteja ciente das informações, selecione a caixa...', Toast.LONG, Toast.TOP);
         }
         setValueAgreement(true)
-        setValueSintomas(true)
+
     }
     function handleSubmitSymtomps() {
         if (sinaisAlarm === false) {
+            if(result.length == 0){
+                setLoadingSubmitSymptms(true);
+                const R = result.length;
+                const A = resultAlarm.length;
+                const Rporcent = ((R * 100) / 12);
+                const Aporcent = ((A * 100) / 10);
+                writeServer(Rporcent, Aporcent)
+            }
             setLoadingSubmitSymptms(true);
-
             setSinaisAlarm(!sinaisAlarm);
             setLoadingSubmitSymptms(false)
         }
@@ -110,7 +119,6 @@ const Queries: React.FC = () => {
             const Rporcent = ((R * 100) / 12);
             const Aporcent = ((A * 100) / 10);
             writeServer(Rporcent, Aporcent)
-
         }
     }
 
@@ -139,8 +147,152 @@ const Queries: React.FC = () => {
                 })
             })
         })
-        return console.log('terminate')
+        return terminateWriteServer(R, A);
     }
+    function terminateWriteServer(R: number, A: number) {
+   
+
+        if (A !== 0){
+                setRisco(2);
+        }else{
+         if ((R !== 0) && (A === 0)) {
+            setRisco(1);}
+        }
+
+          
+    
+        setLoadingSubmitSymptms(false);
+        setFinalResult(true);
+    }
+    if (finalResult) {
+        if (risco === 0) {
+            return (
+                <>
+                    <ImageBackground style={styles.container} imageStyle={styles.containerHeader} source={require('../../assets/headerscreen.png')}>
+                        <View style={[styles.containerForm]}>
+                            <View style={styles.viewHeader}>
+                                <Image resizeMode={'contain'} source={require('../../assets/docQueires.png')} />
+                            </View>
+                            <View style={styles.containerAgreement}>
+                                <Text style={styles.textTitle}>Pronto, veja seu resultado!</Text>
+
+                                <Text style={styles.textBody} >
+                                    Baseado em suas respostas,
+                                    <Text style={[styles.textBody, { fontWeight: 'bold' }]}>
+                                        Você não possui sintomas, nem sinais de alarme.
+                                    </Text>
+                                     No entanto, isto não se trata de um diagnóstico.
+                                </Text>
+
+                                <Text style={styles.textBody} >
+                                    Apesar de não apresentar sintomas, recomendamos que siga as médidas de isolamento social.
+                                </Text>
+
+                                <Text style={styles.textBody} >
+                                    Obrigado por participar da nossa consulta.
+                                </Text>
+
+                                <TouchableOpacity style={styles.submit} onPress={() => navigation.goBack()} >
+                                    <Text style={styles.textSubmit}>SAIR</Text>
+                                </TouchableOpacity>
+
+
+                            </View>
+                        </View>
+                    </ImageBackground>
+                    <View style={styles.tabNavigatorView} >
+                        <TouchableOpacity activeOpacity={1} style={[styles.buttomNavigator, { backgroundColor: '#F72585', top: -20 }]} onPress={() => LinkingWhatsapp()}>
+                            <Image style={styles.iconButtomNavigator} resizeMode={'contain'} source={require('../../assets/share.png')} />
+                        </TouchableOpacity>
+                        <TouchableOpacity activeOpacity={1} style={[styles.buttomNavigator, { backgroundColor: '#7209B7', top: -35 }]} onPress={() => navigation.goBack()}>
+                            <Image style={styles.iconButtomNavigator} resizeMode={'contain'} source={require('../../assets/homeicon.png')} />
+                        </TouchableOpacity>
+                        <TouchableOpacity activeOpacity={1} style={[styles.buttomNavigator, { backgroundColor: '#3A0CA3', top: -20 }]} onPress={() => navigation.navigate('Cases')}>
+                            <Image style={styles.iconButtomNavigator} resizeMode={'contain'} source={require('../../assets/earth.png')} />
+                        </TouchableOpacity>
+                    </View>
+                </>
+            );
+        }
+        return (
+            <>
+                <ImageBackground style={styles.container} imageStyle={styles.containerHeader} source={require('../../assets/headerscreen.png')}>
+                    <View style={[styles.containerForm]}>
+                        <View style={styles.viewHeader}>
+                            <Image resizeMode={'contain'} source={require('../../assets/docQueires.png')} />
+                        </View>
+                        {risco == 1 ? <>
+                            <View style={styles.containerAgreement}>
+                                <Text style={styles.textTitle}>Pronto, veja seu resultado!</Text>
+
+                                <Text style={styles.textBody} >
+                                    Baseado em suas respostas,<Text style={[styles.textBody, { fontWeight: 'bold' }]}>Você possui sintomas, mas não tem sinais de alarme.</Text> No entanto, isto não se trata de um diagnóstico.
+                        </Text>
+
+                                <Text style={styles.textBody} >
+                                    Recomendamos que você siga as normas de isolamento social, caso os sintomas persistam procure uma unidade mais próxima de saúde.
+                        </Text>
+
+                                <Text style={styles.textBody} >
+                                    Obrigado por participar da nossa consulta. Em caso de dúvidas ligue <Text style={[styles.textBody, { fontWeight: 'bold' }]}>136</Text>.
+                        </Text>
+                                <View style={styles.viewCheckBox} >
+                                    <TouchableOpacity style={styles.submit} onPress={() => navigation.goBack()}>
+                                        <Text style={styles.textSubmit}>SAIR</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={styles.submit} onPress={() => Platform.OS == 'ios' ? Linking.openURL(`telprompt:${136}`) : Linking.openURL(`tel:${136}`)} >
+                                        <Text style={styles.textSubmit}>LIGAR</Text>
+                                    </TouchableOpacity>
+                                </View>
+
+                            </View>
+                        </> : <>
+
+                                <View style={styles.containerAgreement}>
+                                    <Text style={styles.textTitle}>Pronto, veja seu resultado!</Text>
+
+                                    <Text style={styles.textBody} >
+                                        Baseado em suas respostas, é provável que está situação se enquadre como doença pelo coronavírus(COVID-19). No entanto isto não se trata de um diagnóstico.
+                        </Text>
+
+                                    <Text style={[styles.textBody,{ fontWeight: 'bold' }]} >
+                                        Você tem sintomas, e possui sintomas de alarme
+                                       
+                        </Text>
+
+                                    <Text style={styles.textBody} >
+                                        Porém não se assuste, recomendamos que procure orientação médica.
+                        </Text>
+                                    <View style={styles.viewCheckBox} >
+                                        <TouchableOpacity style={styles.submit} onPress={() => navigation.goBack()}>
+                                            <Text style={styles.textSubmit}>SAIR</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={styles.submit} onPress={() => navigation.navigate('QueriesMap')} >
+                                            <Text style={styles.textSubmit}>MAPA</Text>
+                                        </TouchableOpacity>
+                                    </View>
+
+                                </View>
+
+                            </>}
+                    </View>
+                </ImageBackground>
+                <View style={styles.tabNavigatorView} >
+                    <TouchableOpacity activeOpacity={1} style={[styles.buttomNavigator, { backgroundColor: '#F72585', top: -20 }]} onPress={() => LinkingWhatsapp()}>
+                        <Image style={styles.iconButtomNavigator} resizeMode={'contain'} source={require('../../assets/share.png')} />
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} style={[styles.buttomNavigator, { backgroundColor: '#7209B7', top: -35 }]} onPress={() => navigation.goBack()}>
+                        <Image style={styles.iconButtomNavigator} resizeMode={'contain'} source={require('../../assets/homeicon.png')} />
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} style={[styles.buttomNavigator, { backgroundColor: '#3A0CA3', top: -20 }]} onPress={() => navigation.navigate('Cases')}>
+                        <Image style={styles.iconButtomNavigator} resizeMode={'contain'} source={require('../../assets/earth.png')} />
+                    </TouchableOpacity>
+                </View>
+            </>
+        );
+    }
+
+
 
     return (
         <>

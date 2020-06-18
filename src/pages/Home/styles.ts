@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     },
     textCardItems: {
         color: 'white',
-        fontSize:    width*0.030
+        fontSize:    width*0.035
     }
 });
 export default styles;

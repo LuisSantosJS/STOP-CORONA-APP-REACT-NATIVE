@@ -102,7 +102,7 @@ const ProviderAuth: React.FC = ({ children }) => {
 
     async function loadUser() {
         const { name, email, telefone } = await UserData();
-        console.log('nome', name)
+       // console.log('nome', name)
         setName(name);
         setEmail(email);
         setPhoneNumber(telefone);
