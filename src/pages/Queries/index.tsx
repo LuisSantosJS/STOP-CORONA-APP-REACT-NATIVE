@@ -109,20 +109,37 @@ const Queries: React.FC = () => {
             const A = resultAlarm.length;
             const Rporcent = ((R * 100) / 12);
             const Aporcent = ((A * 100) / 10);
-            firestore().collection(`${auth().currentUser?.uid}`).add({
-                email,
-                latitude,
-                longitude,
-                nome: name,
-                symtomps: Rporcent,
-                alarm: Aporcent,
-                telefone: phoneNumber
-
-            })
-
-
+            writeServer(Rporcent, Aporcent)
 
         }
+    }
+
+    function writeServer(R: number, A: number) {
+        firestore().collection('results').doc(`${auth().currentUser?.uid}`).set({
+            id: `${auth().currentUser?.uid}`,
+            email,
+            latitude,
+            longitude,
+            nome: name,
+            symtomps: R,
+            alarm: A,
+            telefone: phoneNumber
+        }).then(() => {
+            result.forEach((e: arrayvalues) => {
+                firestore().collection('results').doc(`${auth().currentUser?.uid}`).collection('resultados').doc(`${e.id}`).set({
+                    id: e.id,
+                    sintoma: e.sintoma
+                })
+            })
+        }).then(() => {
+            resultAlarm.forEach((e: arrayvalues) => {
+                firestore().collection('results').doc(`${auth().currentUser?.uid}`).collection('alarmes').doc(`${e.id}`).set({
+                    id: e.id,
+                    sintoma: e.sintoma
+                })
+            })
+        })
+        return console.log('terminate')
     }
 
     return (
