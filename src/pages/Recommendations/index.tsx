@@ -5,11 +5,10 @@ import {
     View,
     Text,
     TouchableOpacity,
+
     Dimensions
 
 } from 'react-native';
-import Lottie from 'lottie-react-native';
-
 import Carousel from 'react-native-snap-carousel';
 import LinkingWhatsapp from '../../functions/LinkWhatsapp';
 import { useNavigation } from '@react-navigation/native';
@@ -50,13 +49,9 @@ const Recommendations: React.FC = () => {
                         <View style={[styles.iconArrow, { left: 0 }]} >
                             <Image source={require('../../assets/arrow_right.png')} />
                         </View>
-
+                        //lf30_editor_iyPzX1
                     }
-                    <View style={{ height: width * 0.4, width: width * 0.4 }}>
-                        {item.id == 0 ? <Lottie loop autoPlay source={require(`../../assets/lottieJSON/0.json`)} resizeMode={'cover'} /> : item.id == 1 ? <Lottie loop autoPlay source={require(`../../assets/lottieJSON/2.json`)} resizeMode={'cover'} /> : <Lottie loop autoPlay source={require(`../../assets/lottieJSON/1.json`)} resizeMode={'cover'} />  }
-                        
-                    </View>
-
+                    <Image resizeMode='contain' source={item.id == 0 ? require('../../assets/animation/0.gif') : (item.id == 1 ? require('../../assets/animation/1.gif') : require('../../assets/animation/2.gif'))} style={{ height: width * 0.5, width: width * 0.5, }} />
                     {index !== 2 &&
                         <View style={[styles.iconArrow, { left: undefined, right: 0 }]} >
                             <Image source={require('../../assets/arrow_es.png')} />

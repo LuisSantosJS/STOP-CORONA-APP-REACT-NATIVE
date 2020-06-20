@@ -89,6 +89,7 @@ target 'applicationstopcorona' do
 
   pod 'react-native-maps', :path => '../node_modules/react-native-maps'
 
+
   target 'applicationstopcoronaTests' do
     inherit! :complete
     # Pods for testing

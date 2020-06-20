@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ImageBackground, Dimensions, Image, View, Text, TouchableOpacity, Linking } from 'react-native';
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Entypo';
+import firestore from '@react-native-firebase/firestore';
 import LinkingWhatsapp from '../../functions/LinkWhatsapp';
 import { useNameUser } from '../../context/contextRouter';
+import { useNotification } from '../../context/contextChat';
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
 const Home: React.FC = () => {
     const navigation = useNavigation();
     const { name } = useNameUser();
-
+    const { notification } = useNotification();
+    useEffect(()=>{},[notification]);
     return (
         <>
             <ImageBackground style={styles.container} imageStyle={{ width: width, height: (width / 1.47) }} source={require('../../assets/retanguloheaderhome.png')}>
@@ -67,8 +70,10 @@ const Home: React.FC = () => {
                     <Image style={styles.iconButtomNavigator} resizeMode={'contain'} source={require('../../assets/person.png')} />
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.viewIconChat}>
-                <Icon name='chat' size={width*0.11} color='#3A0CA3'/>
+            <TouchableOpacity style={styles.viewIconChat} onPress={() => navigation.navigate('Chat')}>
+                <Icon name='chat' size={width * 0.11} color='#3A0CA3' />
+                {notification &&
+                    <View style={{ height: width * 0.03, width: width * 0.03, borderRadius: ((width * 0.03) / 2), backgroundColor: 'orange', position: 'absolute', top: 0, right: 0, left: undefined }} />}
             </TouchableOpacity>
         </>
     );

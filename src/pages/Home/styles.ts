@@ -95,8 +95,8 @@ const styles = StyleSheet.create({
     },
     viewIconChat: {
         position: 'absolute',
-        height: width * 0.2,
-        width: width * 0.2,
+        height: width * 0.12,
+        width: width * 0.12,
         top: height / 3.7,
         left: width - width / 4,
         alignItems: 'center',

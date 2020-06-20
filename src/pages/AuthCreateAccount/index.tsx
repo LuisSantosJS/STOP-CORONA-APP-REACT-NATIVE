@@ -97,6 +97,7 @@ const AuthCreate: React.FC = () => {
             email,
             telefone: telephone,
             id: ID,
+            timestampChat: 0,
             createTimestamp: Number(firestore.Timestamp.now().toMillis())
         };
         firestore().collection('users').doc(ID).set(DATA).then(() => {

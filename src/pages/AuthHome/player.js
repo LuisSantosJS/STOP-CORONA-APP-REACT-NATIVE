@@ -11,7 +11,7 @@ async function BoasVindas() {
     Tts.voices().then(voices => console.log(voices));
     Tts.setDefaultLanguage('pt-BR');
     Tts.speak('olá, seja bem vindo a nossa plataforma', {
-        rate: Platform.OS == 'ios' ? 0.5 : 0.7
+        rate: Platform.OS == 'ios' ? 0.5 : 0.55
     });
 
 };
@@ -19,7 +19,7 @@ export async function Somos() {
     Tts.voices().then(voices => console.log(voices));
     Tts.setDefaultLanguage('pt-BR');
     Tts.speak('nosso objetivo é ajudar a comunidade no combate a disserminação do vírus.', {
-        rate: Platform.OS == 'ios' ? 0.5 : 0.7
+        rate: Platform.OS == 'ios' ? 0.5 : 0.55
     });
 };
 
