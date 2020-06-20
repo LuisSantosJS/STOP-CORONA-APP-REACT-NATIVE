@@ -30,6 +30,13 @@ const styles = StyleSheet.create({
         height: width * 0.15,
         width: width * 0.15
     },
+    viewLogoSpeech: {
+        position: "absolute",
+        left:width * 0.09,
+        top: width * 0.12,
+        height: width * 0.15,
+        width: width * 0.15
+    },
     logoApp: {
         height: width * 0.15,
         width: width * 0.15

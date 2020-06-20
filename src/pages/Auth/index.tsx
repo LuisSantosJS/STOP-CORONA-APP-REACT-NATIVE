@@ -19,13 +19,13 @@ import { useSavedUser } from '../../context/contextRouter';
 import { useNavigation } from '@react-navigation/native';
 import * as EmailValidator from 'email-validator';
 import { ResetPassword } from './functions';
+import KeyboardH from '../../functions/Keyboard';
 import { RectButton } from 'react-native-gesture-handler';
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
 const Auth: React.FC = () => {
     const { setUserSaved } = useSavedUser();
-    const navigation = useNavigation();
     const [visibleEmail, setVisibleEmail] = useState<boolean>(true);
     const [visibleSubmit, setVisibleSubmit] = useState<boolean>(true);
     const [visiblePassword, setVisiblePassword] = useState<boolean>(true);
@@ -33,6 +33,10 @@ const Auth: React.FC = () => {
     const [password, setPassword] = useState<string>('');
     const emailInputRef = useRef().current;
     const passwordInputRef = useRef().current;
+    const keyboardHeigth = KeyboardH();
+    useEffect(() => {
+        console.log('keyboard ', keyboardHeigth);
+    }, [keyboardHeigth])
 
     function handleBackButtonClick() {
         setVisibleEmail(true);
@@ -105,7 +109,7 @@ const Auth: React.FC = () => {
 
             <View style={styles.containerForm}>
                 {visibleEmail &&
-                    <View style={[styles.inputView, { flexDirection: 'row' }]}>
+                    <View style={[styles.inputView, { flexDirection: 'row' },keyboardHeigth !== 0 ? { position: "absolute", top: height/2 - keyboardHeigth } : {}]}>
                         <View style={styles.inputViewImage}>
                             <Image style={{ padding: 15 }} source={require('../../assets/logoemail.png')} />
                         </View>
@@ -124,7 +128,7 @@ const Auth: React.FC = () => {
                     </View>
                 }
                 {visiblePassword &&
-                    <View style={[styles.inputView, { flexDirection: 'row' }]}>
+                    <View style={[styles.inputView, { flexDirection: 'row' }, keyboardHeigth !== 0 ? { position: "absolute", top: height/2 - keyboardHeigth } : {}]}>
                         <View style={styles.inputViewImage}>
                             <Image style={{ padding: 15 }} source={require('../../assets/logopassword.png')} />
                         </View>

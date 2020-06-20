@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
         width: width
     },
     containerHeader: {
-        height: height*0.35,
+        height: height * 0.35,
         width: width,
         flexDirection: 'row',
         justifyContent: 'space-evenly',
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     textBalao: {
         top: -90,
         maxWidth: 140,
-        fontSize: width*0.05
+        fontSize: width * 0.05
     },
 
     containerForm: {
@@ -91,7 +91,16 @@ const styles = StyleSheet.create({
     },
     textCardItems: {
         color: 'white',
-        fontSize:    width*0.035
+        fontSize: width * 0.035
+    },
+    viewIconChat: {
+        position: 'absolute',
+        height: width * 0.2,
+        width: width * 0.2,
+        top: height / 3.7,
+        left: width - width / 4,
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 });
 export default styles;

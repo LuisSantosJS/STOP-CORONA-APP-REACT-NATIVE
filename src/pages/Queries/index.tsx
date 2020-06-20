@@ -256,7 +256,7 @@ const Queries: React.FC = () => {
                         </Text>
 
                                     <Text style={[styles.textBody,{ fontWeight: 'bold' }]} >
-                                        Você tem sintomas, e possui sintomas de alarme
+                                        Você tem sintomas, e possui sinais de alarme
                                        
                         </Text>
 

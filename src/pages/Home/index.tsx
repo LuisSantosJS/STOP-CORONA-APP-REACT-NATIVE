@@ -2,8 +2,8 @@ import React from 'react';
 import { ImageBackground, Dimensions, Image, View, Text, TouchableOpacity, Linking } from 'react-native';
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Entypo';
 import LinkingWhatsapp from '../../functions/LinkWhatsapp';
-
 import { useNameUser } from '../../context/contextRouter';
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -11,7 +11,6 @@ const height = Dimensions.get("window").height;
 const Home: React.FC = () => {
     const navigation = useNavigation();
     const { name } = useNameUser();
-
 
     return (
         <>
@@ -27,7 +26,7 @@ const Home: React.FC = () => {
 
                 </View>
 
-                <View style={styles.containerForm}>
+                <View style={[styles.containerForm]}>
 
 
                     <View style={styles.gridContarinerRow}>
@@ -68,6 +67,9 @@ const Home: React.FC = () => {
                     <Image style={styles.iconButtomNavigator} resizeMode={'contain'} source={require('../../assets/person.png')} />
                 </TouchableOpacity>
             </View>
+            <TouchableOpacity style={styles.viewIconChat}>
+                <Icon name='chat' size={width*0.11} color='#3A0CA3'/>
+            </TouchableOpacity>
         </>
     );
 }

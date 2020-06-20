@@ -8,6 +8,7 @@ import {
     Dimensions
 
 } from 'react-native';
+import Lottie from 'lottie-react-native';
 
 import Carousel from 'react-native-snap-carousel';
 import LinkingWhatsapp from '../../functions/LinkWhatsapp';
@@ -19,23 +20,17 @@ const data = [
     {
         title: 'Lave as mãos regularmente!',
         id: 0
+
     },
     {
-        title: 'Evite sair de casa!',
+        title: 'Sempre use máscara!',
         id: 1
     },
     {
-        title: 'Mantenha distância das pessoas',
+        title: 'Mantenha distância das pessoas!',
         id: 2
     },
-    {
-        title: 'Não toque em seu rosto!',
-        id: 3
-    },
-    {
-        title: 'Use o cotovelo para cobrir a tosse!',
-        id: 4
-    }
+
 ];
 
 interface ITEM {
@@ -57,8 +52,12 @@ const Recommendations: React.FC = () => {
                         </View>
 
                     }
-                    <Image resizeMode={'contain'} source={require('../../assets/reccoomm.png')} />
-                    {index !== 4 &&
+                    <View style={{ height: width * 0.4, width: width * 0.4 }}>
+                        {item.id == 0 ? <Lottie loop autoPlay source={require(`../../assets/lottieJSON/0.json`)} resizeMode={'cover'} /> : item.id == 1 ? <Lottie loop autoPlay source={require(`../../assets/lottieJSON/2.json`)} resizeMode={'cover'} /> : <Lottie loop autoPlay source={require(`../../assets/lottieJSON/1.json`)} resizeMode={'cover'} />  }
+                        
+                    </View>
+
+                    {index !== 2 &&
                         <View style={[styles.iconArrow, { left: undefined, right: 0 }]} >
                             <Image source={require('../../assets/arrow_es.png')} />
                         </View>

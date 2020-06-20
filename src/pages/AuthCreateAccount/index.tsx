@@ -18,6 +18,7 @@ import auth from '@react-native-firebase/auth';
 import { RectButton } from 'react-native-gesture-handler';
 import * as EmailValidator from 'email-validator';
 import Toast from 'react-native-simple-toast';
+import KeyboardH from '../../functions/Keyboard';
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
@@ -25,15 +26,19 @@ const AuthCreate: React.FC = () => {
     const [name, setName] = useState<string>('');
     const { setUserSaved } = useSavedUser();
     const [email, setEmail] = useState<string>('');
-    const navigation = useNavigation();
     const [password, setPassword] = useState<string>('');
+    const [idadeRender, setIdadeRender] = useState<boolean>(false);
+    const [idade, setIdade] = useState<string>('');
     const [telephone, setTelephone] = useState<string>('');
     const [visibleEmail, setVisibleEmail] = useState<boolean>(true);
     const [visibleName, setVisibleName] = useState<boolean>(true);
     const [visiblePassword, setVisiblePassword] = useState<boolean>(true);
     const [visibleconfirmPassword, setVisibleConfirmPassword] = useState<boolean>(true);
     const [visibleSubmit, setVisibleSubmit] = useState<boolean>(true);
-
+    const keyboardHeigth = KeyboardH();
+    useEffect(() => {
+        console.log('keyboard ', keyboardHeigth);
+    }, [keyboardHeigth])
 
 
     function handleBackButtonClick() {
@@ -45,16 +50,21 @@ const AuthCreate: React.FC = () => {
         return true
     }
 
-
     useEffect(() => {
-        Keyboard.addListener('keyboardDidHide', handleBackButtonClick)
+        Keyboard.addListener('keyboardDidHide', handleBackButtonClick);
         return () => {
-            Keyboard.removeListener('keyboardDidHide', handleBackButtonClick)
+            Keyboard.removeListener('keyboardDidHide', handleBackButtonClick);
         };
     }, []);
 
 
     function handleSubmit() {
+        if (idadeRender) {
+            if (idade.length !== 0) {
+                return createAccount();
+            }
+            Toast.showWithGravity('Insira sua idade !', Toast.LONG, Toast.TOP);
+        }
         const emailVerific = EmailValidator.validate(email.toLowerCase());
         if (emailVerific) {
             if (password.length == 0) {
@@ -66,7 +76,7 @@ const AuthCreate: React.FC = () => {
             if (!name.length) {
                 return Toast.showWithGravity('Insira seu Nome!', Toast.LONG, Toast.TOP);
             }
-            return createAccount();
+            return setIdadeRender(true);
         }
         return Toast.showWithGravity('Insira um email válido e Preencha os campos a seguir!', Toast.LONG, Toast.TOP);
     }
@@ -92,6 +102,7 @@ const AuthCreate: React.FC = () => {
         firestore().collection('users').doc(ID).set(DATA).then(() => {
             setUserSaved(true)
             return saveUserDate();
+            return setIdadeRender(true)
         }).catch((e) => {
             console.log(e)
             return Toast.showWithGravity('Ocorreu um erro!', Toast.LONG, Toast.TOP);
@@ -107,16 +118,46 @@ const AuthCreate: React.FC = () => {
 
     }
 
+    if (idadeRender) {
+        return (
+            <View style={styles.container}>
+                <StatusBar backgroundColor={'#454ADE'} />
+                <View style={[styles.header]}>
+                    <Image style={{ height: width * 0.6, width: width * 0.6 }} resizeMode={'contain'} source={require('../../assets/logo.png')} />
+                </View>
+                <View style={styles.containerForm}>
+                    <View style={[styles.inputView, { flexDirection: 'row' }, keyboardHeigth !== 0 ? { position: "absolute", top: height/2 - keyboardHeigth } : {}]}>
+                        <TextInput
+                            style={styles.input}
+                            placeholder={'IDADE:'}
+                            keyboardType={'numeric'}
+                            onChangeText={(e) => setIdade(e)}
+                            value={idade}
+                        />
+                    </View>
+
+
+                    <View style={styles.viewSubmit}>
+                        <RectButton style={[styles.submit]} onPress={handleSubmit}>
+                            <Text style={styles.submitText}>Criar Conta</Text>
+                        </RectButton>
+                    </View>
+                </View>
+            </View>
+
+        );
+    }
+
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor={'#454ADE'} />
-            <View style={[styles.header, { top: !visibleSubmit ? width * 0.15 : 0 }]}>
-                <Image source={require('../../assets/logo.png')} />
+            <View style={[styles.header]}>
+                <Image style={{ height: width * 0.6, width: width * 0.6 }} resizeMode={'contain'} source={require('../../assets/logo.png')} />
             </View>
             <View style={styles.containerForm}>
                 {visibleName &&
-                    <View style={[styles.inputView, { flexDirection: 'row' }]}>
-                        <View style={styles.inputViewImage}>
+                    <View style={[styles.inputView, { flexDirection: 'row' }, keyboardHeigth !== 0 ? { position: "absolute", top: height/2 - keyboardHeigth } : {}]}>
+                        <View style={[styles.inputViewImage]}>
                             <Image style={{ padding: 15 }} source={require('../../assets/person-24px.png')} />
                         </View>
                         <TextInput
@@ -134,7 +175,7 @@ const AuthCreate: React.FC = () => {
                     </View>
                 }
                 {visibleconfirmPassword &&
-                    <View style={[styles.inputView, { flexDirection: 'row' }]}>
+                    <View style={[styles.inputView, { flexDirection: 'row' }, keyboardHeigth !== 0 ? { position: "absolute", top: height/2 - keyboardHeigth } : {}]}>
                         <View style={styles.inputViewImage}>
                             <Image style={{ padding: 15, height: 18, width: 18 }} resizeMode={'cover'} source={require('../../assets/telephone.png')} />
                         </View>
@@ -154,7 +195,7 @@ const AuthCreate: React.FC = () => {
                     </View>
                 }
                 {visibleEmail &&
-                    <View style={[styles.inputView, { flexDirection: 'row' }]}>
+                    <View style={[styles.inputView, { flexDirection: 'row' }, keyboardHeigth !== 0 ? { position: "absolute", top: height/2 - keyboardHeigth } : {}]}>
                         <View style={styles.inputViewImage}>
                             <Image style={{ padding: 15 }} source={require('../../assets/logoemail.png')} />
                         </View>
@@ -174,7 +215,7 @@ const AuthCreate: React.FC = () => {
                     </View>
                 }
                 {visiblePassword &&
-                    <View style={[styles.inputView, { flexDirection: 'row' }]}>
+                    <View style={[styles.inputView, { flexDirection: 'row' }, keyboardHeigth !== 0 ? { position: "absolute", top: height/2 - keyboardHeigth } : {}]}>
                         <View style={styles.inputViewImage}>
                             <Image style={{ padding: 15 }} source={require('../../assets/logopassword.png')} />
                         </View>
@@ -196,7 +237,7 @@ const AuthCreate: React.FC = () => {
                 {visibleSubmit &&
                     <View style={styles.viewSubmit}>
                         <RectButton style={[styles.submit]} onPress={handleSubmit}>
-                            <Text style={styles.submitText}>Criar Conta</Text>
+                            <Text style={styles.submitText}>Continuar</Text>
                         </RectButton>
                     </View>
                 }

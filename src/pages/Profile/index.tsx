@@ -18,6 +18,7 @@ import { useNavigation } from '@react-navigation/native';
 import LinkingWhatsapp from '../../functions/LinkWhatsapp';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
 import styles from './styles';
+import KeyboardH from '../../functions/Keyboard';
 import updateName from './functions';
 import { useNameUser, useEmailUser } from '../../context/contextRouter';
 const width = Dimensions.get("window").width;
@@ -33,6 +34,11 @@ const Profile: React.FC = () => {
     const [visiblePassword, setVisiblePassword] = useState<boolean>(true);
     const [visibleTapBar, setVisibleTabBar] = useState<boolean>(true);
     const [visibleSubmit, setVisibleSubmit] = useState<boolean>(true);
+    const keyboardHeigth = KeyboardH();
+    useEffect(() => {
+        console.log('keyboard ', keyboardHeigth);
+    }, [keyboardHeigth])
+
 
     function handleBackButtonClick() {
         setVisibleEmail(true);
@@ -80,7 +86,7 @@ const Profile: React.FC = () => {
 
                     {visibleName &&
                         <TextInput
-                            style={[styles.inputView, { padding: (width * 0.16) / 4 }, styles.textInfo]}
+                            style={[styles.inputView, { padding: (width * 0.16) / 4 }, styles.textInfo, keyboardHeigth !== 0 ? { position: "absolute", top: height/2 - keyboardHeigth } : {}]}
                             value={nameUser}
                             onTouchStart={() => {
                                 setVisibleEmail(false);
@@ -103,7 +109,7 @@ const Profile: React.FC = () => {
 
                     {visiblePassword &&
                         <TextInput
-                            style={[styles.inputView, { padding: (width * 0.16) / 4 }, styles.textInfo]}
+                            style={[styles.inputView, { padding: (width * 0.16) / 4 }, styles.textInfo,keyboardHeigth !== 0 ? { position: "absolute", top: height/2 - keyboardHeigth } : {}]}
                             placeholder={'Digite a nova senha...'}
                             value={password}
                             secureTextEntry

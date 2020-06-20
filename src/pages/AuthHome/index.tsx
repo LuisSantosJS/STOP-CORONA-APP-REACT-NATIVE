@@ -1,10 +1,25 @@
-import React from 'react';
-import { ImageBackground, View, StatusBar, Image, Text } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, StatusBar, Image, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import BoasVindas, { Somos } from './player';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import KeyboardH from '../../functions/Keyboard';
+import { Dimensions } from 'react-native';
+const width = Dimensions.get("window").width;
+const height = Dimensions.get("window").height;
 const AuthHome: React.FC = () => {
     const navigation = useNavigation();
+    const keyboardHeigth = KeyboardH();
+    useEffect(() => {
+        console.log('keyboard ', keyboardHeigth);
+    }, [keyboardHeigth])
+
+    useEffect(() => {
+        BoasVindas();
+    }, [])
+
     return (
         <>
             <View style={styles.container}>
@@ -23,16 +38,21 @@ const AuthHome: React.FC = () => {
                     </Text>
                     <View style={styles.viewSelectorOption}>
 
-                        <TouchableOpacity style={styles.buttonSelector} onPress={()=> navigation.navigate('Auth')}>
+                        <TouchableOpacity style={styles.buttonSelector} onPress={() => navigation.navigate('Auth')}>
                             <Text style={styles.textButton}>Entar</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.buttonSelector} onPress={()=> navigation.navigate('AuthCreate')}>
+                        <TouchableOpacity style={styles.buttonSelector} onPress={() => navigation.navigate('AuthCreate')}>
                             <Text style={styles.textButton}>Cadastrar</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
 
 
+            </View>
+            <View style={styles.viewLogoSpeech} >
+            <TouchableOpacity style={{width: '100%', height: '100%'}} onPress={() => Somos()}>
+                <Icon name='text-to-speech' color='white' size={width * 0.09} />
+            </TouchableOpacity>
             </View>
             <View style={[styles.viewLogoApp]} >
                 <Image style={styles.logoApp} resizeMode={'contain'} source={require('../../assets/logo.png')} />
