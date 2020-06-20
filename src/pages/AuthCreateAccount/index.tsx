@@ -31,6 +31,7 @@ const AuthCreate: React.FC = () => {
     const [idade, setIdade] = useState<string>('');
     const [telephone, setTelephone] = useState<string>('');
     const [visibleEmail, setVisibleEmail] = useState<boolean>(true);
+    const [visibleIdade, setVisibleIdade] = useState<boolean>(true);
     const [visibleName, setVisibleName] = useState<boolean>(true);
     const [visiblePassword, setVisiblePassword] = useState<boolean>(true);
     const [visibleconfirmPassword, setVisibleConfirmPassword] = useState<boolean>(true);
@@ -44,6 +45,7 @@ const AuthCreate: React.FC = () => {
     function handleBackButtonClick() {
         setVisibleEmail(true);
         setVisibleName(true);
+        setVisibleIdade(true);
         setVisiblePassword(true);
         setVisibleConfirmPassword(true);
         setVisibleSubmit(true);
@@ -126,23 +128,27 @@ const AuthCreate: React.FC = () => {
                 <View style={[styles.header]}>
                     <Image style={{ height: width * 0.6, width: width * 0.6 }} resizeMode={'contain'} source={require('../../assets/logo.png')} />
                 </View>
+
                 <View style={styles.containerForm}>
-                    <View style={[styles.inputView, { flexDirection: 'row' }, keyboardHeigth !== 0 ? { position: "absolute", top: height/2 - keyboardHeigth } : {}]}>
+                    <View style={[styles.inputView, { flexDirection: 'row' }, keyboardHeigth !== 0 ? { position: "absolute", top: height / 2 - keyboardHeigth } : {}]}>
                         <TextInput
                             style={styles.input}
                             placeholder={'IDADE:'}
                             keyboardType={'numeric'}
+                            onTouchStart={()=>{
+                                setVisibleIdade(false);
+                            }}
                             onChangeText={(e) => setIdade(e)}
                             value={idade}
                         />
                     </View>
 
-
-                    <View style={styles.viewSubmit}>
-                        <RectButton style={[styles.submit]} onPress={handleSubmit}>
-                            <Text style={styles.submitText}>Criar Conta</Text>
-                        </RectButton>
-                    </View>
+                    {visibleIdade &&
+                        <View style={styles.viewSubmit}>
+                            <RectButton style={[styles.submit]} onPress={handleSubmit}>
+                                <Text style={styles.submitText}>Criar Conta</Text>
+                            </RectButton>
+                        </View>}
                 </View>
             </View>
 
@@ -157,12 +163,12 @@ const AuthCreate: React.FC = () => {
             </View>
             <View style={styles.containerForm}>
                 {visibleName &&
-                    <View style={[styles.inputView, { flexDirection: 'row' }, keyboardHeigth !== 0 ? { position: "absolute", top: height/2 - keyboardHeigth } : {}]}>
+                    <View style={[styles.inputView, { flexDirection: 'row' }, keyboardHeigth !== 0 ? { position: "absolute", top: height / 2 - keyboardHeigth } : {}]}>
                         <View style={[styles.inputViewImage]}>
                             <Image style={{ padding: 15 }} source={require('../../assets/person-24px.png')} />
                         </View>
                         <TextInput
-                            style={styles.input}
+                            style={[styles.input,{paddingLeft: 1}]}
                             placeholder={'Nome'}
                             onTouchStart={() => {
                                 setVisibleConfirmPassword(false);
@@ -176,7 +182,7 @@ const AuthCreate: React.FC = () => {
                     </View>
                 }
                 {visibleconfirmPassword &&
-                    <View style={[styles.inputView, { flexDirection: 'row' }, keyboardHeigth !== 0 ? { position: "absolute", top: height/2 - keyboardHeigth } : {}]}>
+                    <View style={[styles.inputView, { flexDirection: 'row' }, keyboardHeigth !== 0 ? { position: "absolute", top: height / 2 - keyboardHeigth } : {}]}>
                         <View style={styles.inputViewImage}>
                             <Image style={{ padding: 15, height: 18, width: 18 }} resizeMode={'cover'} source={require('../../assets/telephone.png')} />
                         </View>
@@ -196,7 +202,7 @@ const AuthCreate: React.FC = () => {
                     </View>
                 }
                 {visibleEmail &&
-                    <View style={[styles.inputView, { flexDirection: 'row' }, keyboardHeigth !== 0 ? { position: "absolute", top: height/2 - keyboardHeigth } : {}]}>
+                    <View style={[styles.inputView, { flexDirection: 'row' }, keyboardHeigth !== 0 ? { position: "absolute", top: height / 2 - keyboardHeigth } : {}]}>
                         <View style={styles.inputViewImage}>
                             <Image style={{ padding: 15 }} source={require('../../assets/logoemail.png')} />
                         </View>
@@ -216,7 +222,7 @@ const AuthCreate: React.FC = () => {
                     </View>
                 }
                 {visiblePassword &&
-                    <View style={[styles.inputView, { flexDirection: 'row' }, keyboardHeigth !== 0 ? { position: "absolute", top: height/2 - keyboardHeigth } : {}]}>
+                    <View style={[styles.inputView, { flexDirection: 'row' }, keyboardHeigth !== 0 ? { position: "absolute", top: height / 2 - keyboardHeigth } : {}]}>
                         <View style={styles.inputViewImage}>
                             <Image style={{ padding: 15 }} source={require('../../assets/logopassword.png')} />
                         </View>
