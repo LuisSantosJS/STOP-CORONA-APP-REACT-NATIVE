@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import AuthRouter from './routes/AuthRouter';
 import MainRouter from './routes/MainRouter';
 
-import auth from '@react-native-firebase/auth';
+
 
 const Routes = () => {
     const { userSaved, setUserSaved } = useSavedUser();

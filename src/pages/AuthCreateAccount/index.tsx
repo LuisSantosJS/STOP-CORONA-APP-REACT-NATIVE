@@ -69,6 +69,9 @@ const AuthCreate: React.FC = () => {
         }
         const emailVerific = EmailValidator.validate(email.toLowerCase());
         if (emailVerific) {
+            if((name.toLowerCase() == 'administrador') || (name.toLowerCase() == 'admin')){
+                return Toast.showWithGravity('nome inválido!', Toast.LONG, Toast.TOP);
+            }
             if (password.length == 0) {
                 return Toast.showWithGravity('Insira sua senha!', Toast.LONG, Toast.TOP);
             }

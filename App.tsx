@@ -4,6 +4,7 @@ import Routes from './src';
 import ProviderAuth from './src/context/contextRouter';
 import ProviderChat from './src/context/contextChat';
 export default function App() {
+  
   return (
     <ProviderAuth>
       <ProviderChat>

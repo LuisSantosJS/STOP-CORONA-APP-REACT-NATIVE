@@ -47,7 +47,7 @@ const Chat: React.FC = () => {
                 timestampChat: Number(firestore.Timestamp.now().toMillis())
             })
         }
-    }, [])
+    }, []);
 
     function sendMessage() {
         setStateSend(true);
@@ -79,7 +79,7 @@ const Chat: React.FC = () => {
                     <View style={[styles.boxMessage, { backgroundColor: '#6d8cfe', left: 7, borderBottomRightRadius: 10, borderTopLeftRadius: 10 }]}>
                         <Text style={{ color: '#141414', fontSize: width * 0.04}}> {item.text}</Text>
                     </View>
-                    <Text style={{ left: 10, fontSize: width * 0.035, color: 'black' }}>@{item.name}</Text>
+                    <Text style={{ left: 10, fontSize: width * 0.035, color: item.email == 'Querytena@gmail.com' ? 'green' : 'black'}}>@{item.name}</Text>
                 </View>
             );
         }
@@ -91,7 +91,6 @@ const Chat: React.FC = () => {
                 <View style={{ width: width, flexDirection: 'row-reverse' }}>
                     <Text style={{ left: 10, fontSize: width * 0.035, color: 'black' }}>{moment(Number(item.createTimestamp)).locale('pt-br').fromNow()}</Text>
                 </View>
-
             </View>
         );
     }
