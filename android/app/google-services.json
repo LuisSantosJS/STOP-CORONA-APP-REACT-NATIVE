@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "625420473695",
+    "firebase_url": "https://querytenacovid19.firebaseio.com",
+    "project_id": "querytenacovid19",
+    "storage_bucket": "querytenacovid19.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:625420473695:android:114e58068d298eef4792ea",
+        "android_client_info": {
+          "package_name": "com.applicationstopcorona"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "625420473695-v49lfv19e368hukiv14qfc1o6jpthag5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.applicationstopcorona",
+            "certificate_hash": "2fd53fc2a5aa3a5895625ea813f531e9fff9bb05"
+          }
+        },
+        {
+          "client_id": "625420473695-a0g96937c11746a4gk4ggt8rb0l8qhmu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQsMHWCtrHw1al4rOZnIxpaAQMHeLnmdc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "625420473695-22j2a08alha2ok0hft170qbdbh5tjt7b.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "625420473695-2ng7fc0d0h7hrog32pda6gilgmho0h6h.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.aplication-corona-stop"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
