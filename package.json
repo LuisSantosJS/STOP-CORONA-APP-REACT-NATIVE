@@ -23,7 +23,7 @@
     "@types/react-native-snap-carousel": "^3.8.1",
     "email-validator": "^2.0.4",
     "firestore-wrapper": "^0.1.7",
-    "moment": "^2.27.0",
+    "moment": "^2.29.2",
     "react": "16.11.0",
     "react-native": "0.62.2",
     "react-native-gesture-handler": "^1.6.1",
